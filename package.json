@@ -1,0 +1,21 @@
+{
+  "name": "nael_mind",
+  "version": "1.0.0",
+  "description": "Personal knowledge system for Natanael Rudy Hadinata.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/naelrudd/nael-mind.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/naelrudd/nael-mind/issues"
+  },
+  "homepage": "https://github.com/naelrudd/nael-mind#readme"
+}
