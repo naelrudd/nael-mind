@@ -506,6 +506,74 @@ html, body {
   color: var(--text-secondary);
 }
 
+.modal-wide {
+  max-width: 700px;
+}
+
+.modal-help {
+  margin-top: -6px;
+}
+
+.modal-preview {
+  margin: 4px 0 0;
+  color: var(--accent);
+  font-size: 12px;
+}
+
+.create-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.create-grid label {
+  display: grid;
+  gap: 6px;
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+
+.create-grid .full {
+  grid-column: 1 / -1;
+}
+
+.folder-tools {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.folder-tools label {
+  display: grid;
+  gap: 6px;
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+
+.folder-tools-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.select-input,
+.text-input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.folder-context {
+  padding: 8px 20px 0;
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+
 #file-upload {
   margin: 16px 0;
   padding: 12px;

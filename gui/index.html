@@ -45,7 +45,7 @@
     <!-- Main Content -->
     <main class="main">
       <!-- Toolbar -->
-      <div class="toolbar">
+        <div class="toolbar">
         <div class="breadcrumb" id="breadcrumb">
           <span>content/</span>
         </div>
@@ -76,6 +76,7 @@
             <input type="text" id="edit-filename" placeholder="filename.md" class="filename-input">
             <input type="text" id="edit-tags" placeholder="Tags: ai, business, session (comma separated)" class="tags-input">
           </div>
+          <div class="folder-context" id="folder-context">Folder: content</div>
           <div class="editor-panes">
             <textarea id="edit-content" placeholder="Write markdown here..." class="edit-textarea"></textarea>
             <div class="preview-pane" id="preview-pane">
@@ -95,6 +96,47 @@
       <div class="modal-actions">
         <button class="btn btn-secondary" id="btn-upload-cancel">Cancel</button>
         <button class="btn btn-primary" id="btn-upload-confirm">Upload</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create File Modal -->
+  <div class="modal" id="create-modal" style="display:none;">
+    <div class="modal-content modal-wide">
+      <h3>Create File</h3>
+      <p class="modal-help">Pilih folder dulu. Kalau isi folder baru, folder akan dibuat saat file disimpan.</p>
+      <div class="create-grid">
+        <label>
+          <span>Search folder</span>
+          <input type="text" id="create-folder-filter" placeholder="Search folder..." class="text-input">
+        </label>
+        <label class="full">
+          <span>Parent folder</span>
+          <select id="create-folder-select" class="select-input"></select>
+        </label>
+        <label>
+          <span>New subfolder (optional)</span>
+          <input type="text" id="create-folder-input" placeholder="projects/ideas" class="text-input">
+        </label>
+        <label>
+          <span>Filename</span>
+          <input type="text" id="create-filename-input" placeholder="note.md" class="text-input">
+        </label>
+      </div>
+      <p class="modal-preview" id="create-path-preview">Target: content/</p>
+      <div class="folder-tools">
+        <label>
+          <span>New folder name</span>
+          <input type="text" id="create-folder-name-input" placeholder="ideas" class="text-input">
+        </label>
+        <div class="folder-tools-actions">
+          <button class="btn btn-secondary" id="btn-create-folder" type="button">New Folder</button>
+          <button class="btn btn-danger" id="btn-folder-delete" type="button">Delete Folder</button>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" id="btn-create-cancel">Cancel</button>
+        <button class="btn btn-primary" id="btn-create-confirm">Create</button>
       </div>
     </div>
   </div>

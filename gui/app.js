@@ -4,6 +4,8 @@ const state = {
   currentFile: null,
   allFiles: [],
   isEditing: false,
+  currentFolder: 'content',
+  createFolder: 'content',
 };
 
 const fileTreeEl = document.getElementById('file-tree');
@@ -17,6 +19,16 @@ const previewContentEl = document.getElementById('preview-content');
 const editFilenameEl = document.getElementById('edit-filename');
 const editTagsEl = document.getElementById('edit-tags');
 const editContentEl = document.getElementById('edit-content');
+const folderContextEl = document.getElementById('folder-context');
+const createModalEl = document.getElementById('create-modal');
+const createFolderFilterEl = document.getElementById('create-folder-filter');
+const createFolderSelectEl = document.getElementById('create-folder-select');
+const createFolderInputEl = document.getElementById('create-folder-input');
+const createFilenameInputEl = document.getElementById('create-filename-input');
+const createFolderNameInputEl = document.getElementById('create-folder-name-input');
+const createFolderBtnEl = document.getElementById('btn-create-folder');
+const folderDeleteBtnEl = document.getElementById('btn-folder-delete');
+const createPathPreviewEl = document.getElementById('create-path-preview');
 const toastEl = document.getElementById('toast');
 
 function normalizeContentPath(path = '') {
@@ -33,6 +45,106 @@ function normalizeContentPath(path = '') {
 
 function toDisplayPath(path) {
   return normalizeContentPath(path).replace(/^content\/?/, '') || 'content';
+}
+
+function folderFromFilePath(path) {
+  const normalized = normalizeContentPath(path);
+  if (normalized === 'content') return 'content';
+  const parts = normalized.split('/');
+  parts.pop();
+  return parts.join('/') || 'content';
+}
+
+function fileNameFromPath(path) {
+  const normalized = normalizeContentPath(path);
+  if (normalized === 'content') return '';
+  return normalized.split('/').pop();
+}
+
+function uniqueFolders(files) {
+  const folders = new Set(['content']);
+  files.forEach((file) => {
+    const normalized = normalizeContentPath(file.path);
+    let current = folderFromFilePath(normalized);
+    while (current && current !== 'content') {
+      folders.add(current);
+      current = folderFromFilePath(current);
+      if (current === 'content') {
+        folders.add('content');
+        break;
+      }
+    }
+    folders.add(folderFromFilePath(normalized));
+  });
+  return Array.from(folders).sort();
+}
+
+function filterFolders(query) {
+  const q = String(query || '').trim().toLowerCase();
+  const folders = uniqueFolders(state.allFiles);
+  if (!q) return folders;
+  return folders.filter((folder) => folder.toLowerCase().includes(q));
+}
+
+function buildCreateTarget() {
+  const parent = normalizeContentPath(createFolderSelectEl.value || state.createFolder || 'content');
+  const subfolder = String(createFolderInputEl.value || '').trim().replace(/^\/+|\/+$/g, '');
+  const filename = String(createFilenameInputEl.value || '').trim().replace(/^\/+/, '');
+
+  if (!filename) {
+    return { path: '', error: 'Filename required' };
+  }
+
+  if (!filename.toLowerCase().endsWith('.md')) {
+    return { path: '', error: 'Filename must end with .md' };
+  }
+
+  const finalFolder = [parent, subfolder].filter(Boolean).join('/').replace(/\/+/g, '/');
+  const normalizedFolder = normalizeContentPath(finalFolder || 'content');
+  const finalPath = normalizedFolder === 'content' ? `content/${filename}` : `${normalizedFolder}/${filename}`;
+
+  return { path: normalizeContentPath(finalPath), folder: normalizedFolder };
+}
+
+function updateCreatePreview() {
+  const result = buildCreateTarget();
+  createPathPreviewEl.textContent = result.error ? `Target: ${result.error}` : `Target: ${result.path}`;
+}
+
+function syncFolderContext(folder) {
+  const normalized = normalizeContentPath(folder || 'content');
+  state.currentFolder = normalized;
+  if (folderContextEl) {
+    folderContextEl.textContent = `Folder: ${toDisplayPath(normalized)}`;
+  }
+}
+
+function openCreateModal(folder = state.currentFolder) {
+  state.createFolder = normalizeContentPath(folder || 'content');
+  renderCreateFolderOptions();
+  createFolderSelectEl.value = state.createFolder;
+  createFolderFilterEl.value = '';
+  createFolderInputEl.value = '';
+  createFilenameInputEl.value = '';
+  createFolderNameInputEl.value = '';
+  updateCreatePreview();
+  createModalEl.style.display = 'flex';
+}
+
+function closeCreateModal() {
+  createModalEl.style.display = 'none';
+}
+
+function renderCreateFolderOptions(query = '') {
+  const folders = filterFolders(query);
+  createFolderSelectEl.innerHTML = folders.map((folder) => `<option value="${folder}">${folder}</option>`).join('');
+  if (!folders.includes(state.createFolder)) {
+    const option = document.createElement('option');
+    option.value = state.createFolder;
+    option.textContent = state.createFolder;
+    createFolderSelectEl.appendChild(option);
+  }
+  createFolderSelectEl.value = state.createFolder;
 }
 
 function escapeHtml(text) {
@@ -200,6 +312,10 @@ async function apiDelete(filename, commitMessage) {
   return response.json();
 }
 
+function collectCreateFolderOptions() {
+  renderCreateFolderOptions(createFolderFilterEl?.value || '');
+}
+
 async function fetchTree(path = 'content') {
   const data = await apiList(path);
   const files = Array.isArray(data.files) ? data.files : [];
@@ -286,12 +402,14 @@ async function refreshFileTree() {
   const tree = await fetchTree('content');
   state.allFiles = flattenTree(tree, []).filter((node) => node.type === 'file');
   renderFileTree(tree);
+  collectCreateFolderOptions();
 }
 
 async function loadFile(path) {
   const filePath = normalizeContentPath(path);
   state.currentFile = filePath;
   state.isEditing = false;
+  syncFolderContext(folderFromFilePath(filePath));
 
   document.querySelectorAll('.tree-item').forEach((el) => el.classList.remove('active'));
   document.querySelector(`[data-path="${filePath}"]`)?.classList.add('active');
@@ -347,7 +465,8 @@ async function saveFile() {
     return;
   }
 
-  const filename = normalizeContentPath(filenameInput);
+  const baseFolder = state.currentFile ? folderFromFilePath(state.currentFile) : state.currentFolder;
+  const filename = normalizeContentPath(filenameInput.includes('/') ? filenameInput : `${baseFolder}/${filenameInput}`);
   const tags = editTagsEl.value.split(',').map((tag) => tag.trim()).filter(Boolean);
   const rawContent = editContentEl.value.replace(/^---\n[\s\S]*?\n---\n?/, '');
   const fullContent = buildFrontmatter(tags) + rawContent.replace(/^\n+/, '');
@@ -358,6 +477,7 @@ async function saveFile() {
       showToast('Saved successfully');
       state.currentFile = filename;
       state.isEditing = false;
+      syncFolderContext(folderFromFilePath(filename));
       await refreshFileTree();
       await loadFile(filename);
     } else {
@@ -411,20 +531,7 @@ async function doDelete() {
 }
 
 function startNewFile() {
-  state.currentFile = null;
-  state.isEditing = true;
-
-  editFilenameEl.value = '';
-  editTagsEl.value = '';
-  editContentEl.value = '# New Note\n\n';
-
-  viewerEl.style.display = 'none';
-  editorEl.style.display = 'flex';
-  breadcrumbEl.innerHTML = '<span>content/</span>new-file.md';
-  fileTitleEl.textContent = 'New file';
-  fileTagsEl.innerHTML = '';
-  updateToolbar();
-  updatePreview();
+  openCreateModal(state.currentFolder);
 }
 
 async function handleUpload() {
@@ -444,6 +551,92 @@ async function handleUpload() {
   document.getElementById('upload-modal').style.display = 'none';
   await refreshFileTree();
   showToast('Upload complete');
+}
+
+async function handleCreateFile() {
+  const result = buildCreateTarget();
+  if (result.error) {
+    showToast(result.error, 'error');
+    return;
+  }
+
+  syncFolderContext(result.folder);
+  state.currentFile = null;
+  state.isEditing = true;
+  editFilenameEl.value = fileNameFromPath(result.path);
+  editTagsEl.value = '';
+  editContentEl.value = '# New Note\n\n';
+  breadcrumbEl.innerHTML = `<span>content/</span>${toDisplayPath(result.folder) === 'content' ? '' : toDisplayPath(result.folder)}`;
+  viewerEl.style.display = 'none';
+  editorEl.style.display = 'flex';
+  updateToolbar();
+  updatePreview();
+  closeCreateModal();
+}
+
+async function handleCreateFolder() {
+  const parent = normalizeContentPath(createFolderSelectEl.value || state.createFolder || 'content');
+  const name = String(createFolderNameInputEl.value || '').trim().replace(/^\/+|\/+$/g, '');
+
+  if (!name) {
+    showToast('Folder name required', 'error');
+    return;
+  }
+
+  if (name.includes('.')) {
+    showToast('Folder name should not contain dots', 'error');
+    return;
+  }
+
+  const targetFolder = parent === 'content' ? `content/${name}` : `${parent}/${name}`;
+  const placeholderFile = `${normalizeContentPath(targetFolder)}/.keep`;
+  const result = await apiUpdate(placeholderFile, '# folder placeholder\n', `create folder: ${targetFolder}`);
+
+  if (!result.success) {
+    showToast(result.error || 'Failed to create folder', 'error');
+    return;
+  }
+
+  createFolderNameInputEl.value = '';
+  showToast(`Folder created: ${targetFolder}`);
+  await refreshFileTree();
+  state.createFolder = normalizeContentPath(targetFolder);
+  renderCreateFolderOptions(createFolderFilterEl.value || '');
+  createFolderSelectEl.value = state.createFolder;
+  updateCreatePreview();
+}
+
+async function handleDeleteFolder() {
+  const target = normalizeContentPath(createFolderSelectEl.value || state.createFolder || 'content');
+  if (target === 'content') {
+    showToast('Cannot delete content root', 'error');
+    return;
+  }
+
+  const filesInFolder = state.allFiles.filter((file) => folderFromFilePath(file.path) === target || file.path.startsWith(`${target}/`));
+  if (filesInFolder.length > 1 || (filesInFolder.length === 1 && fileNameFromPath(filesInFolder[0].path) !== '.keep')) {
+    showToast('Folder is not empty', 'error');
+    return;
+  }
+
+  const placeholder = filesInFolder.find((file) => file.path.endsWith('/.keep'));
+  if (!placeholder) {
+    showToast('No placeholder found for folder', 'error');
+    return;
+  }
+
+  const result = await apiDelete(placeholder.path, `delete folder placeholder: ${target}`);
+  if (!result.success) {
+    showToast(result.error || 'Failed to delete folder', 'error');
+    return;
+  }
+
+  showToast(`Folder deleted: ${target}`);
+  await refreshFileTree();
+  state.createFolder = 'content';
+  renderCreateFolderOptions(createFolderFilterEl.value || '');
+  createFolderSelectEl.value = state.createFolder;
+  updateCreatePreview();
 }
 
 function searchFiles(query) {
@@ -474,7 +667,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   await refreshFileTree();
   updateToolbar();
 
-  document.getElementById('btn-new-file').addEventListener('click', startNewFile);
   document.getElementById('btn-edit').addEventListener('click', startEdit);
   document.getElementById('btn-save').addEventListener('click', saveFile);
   document.getElementById('btn-cancel').addEventListener('click', cancelEdit);
@@ -487,6 +679,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('upload-modal').style.display = 'none';
   });
   document.getElementById('btn-upload-confirm').addEventListener('click', handleUpload);
+  document.getElementById('btn-create-cancel').addEventListener('click', closeCreateModal);
+  document.getElementById('btn-create-confirm').addEventListener('click', handleCreateFile);
+  createFolderFilterEl.addEventListener('input', () => renderCreateFolderOptions(createFolderFilterEl.value));
+  createFolderSelectEl.addEventListener('change', () => {
+    state.createFolder = normalizeContentPath(createFolderSelectEl.value || 'content');
+    updateCreatePreview();
+  });
+  createFolderInputEl.addEventListener('input', updateCreatePreview);
+  createFilenameInputEl.addEventListener('input', updateCreatePreview);
+  createFolderNameInputEl.addEventListener('input', updateCreatePreview);
+  createFolderBtnEl.addEventListener('click', handleCreateFolder);
+  folderDeleteBtnEl.addEventListener('click', handleDeleteFolder);
+
+  document.getElementById('btn-new-file').addEventListener('click', () => openCreateModal(state.currentFolder));
 
   document.getElementById('btn-delete-cancel').addEventListener('click', () => {
     document.getElementById('delete-modal').style.display = 'none';
