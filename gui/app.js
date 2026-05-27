@@ -529,10 +529,126 @@ function updateToolbar() {
 }
 
 async function refreshFileTree() {
-  fileTreeEl.innerHTML = '<p class="empty-state">Loading...</p>';
-  const tree = await fetchTree('content');
-  state.allFiles = flattenTree(tree, []).filter((node) => node.type === 'file');
-  renderFileTree(tree);
+  // Hapus 'Loading...' agar tidak flicker. 
+  // Kita ambil data di background, lalu ganti DOM sekaligus.
+  try {
+    const tree = await fetchTree('content');
+    state.allFiles = flattenTree(tree, []).filter((node) => node.type === 'file');
+    renderFileTree(tree);
+  } catch (e) {
+    showToast('Failed to refresh tree', 'error');
+  }
+}
+
+function renderFileTree(nodes, container = fileTreeEl) {
+  const fragment = document.createDocumentFragment();
+
+  nodes
+    .slice()
+    .sort((a, b) => a.type.localeCompare(b.type) || a.name.localeCompare(b.name))
+    .forEach((node) => {
+      if (node.type === 'dir') {
+        const folderWrap = document.createElement('div');
+        folderWrap.className = 'tree-folder-content';
+
+        const header = document.createElement('div');
+        header.className = 'tree-item tree-folder';
+        header.innerHTML = `<span class="icon arrow">▶</span><span class="icon">📁</span>${node.name}`;
+        header.dataset.folder = node.path;
+
+        header.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          header.classList.add('drop-target');
+        });
+        header.addEventListener('dragleave', (e) => {
+          header.classList.remove('drop-target');
+        });
+        header.addEventListener('drop', async (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          header.classList.remove('drop-target');
+          const filePath = e.dataTransfer.getData('text/plain');
+          
+          const targetFolder = node.path;
+          const filename = fileNameFromPath(filePath);
+          const targetPath = normalizeContentPath(targetFolder === 'content' ? `content/${filename}` : `${targetFolder}/${filename}`);
+          
+          if (filePath === targetPath) return;
+
+          // Optimistic: Sembunyikan file lama segera
+          const oldEl = document.querySelector(`[data-path="${filePath}"]`);
+          if (oldEl) oldEl.style.display = 'none';
+
+          const readRes = await fetch(`${API_BASE}/api/read?filename=${encodeURIComponent(filePath)}`);
+          const readData = await readRes.json();
+          if (readRes.ok) {
+            const saveRes = await apiUpdate(targetPath, readData.content, `drag-drop: ${filePath} -> ${targetPath}`);
+            if (saveRes.success) {
+              await apiDelete(filePath, `drag-drop: remove old ${filePath}`);
+              showToast(`Moved to ${node.name}`);
+              await refreshFileTree();
+              if (state.currentFile === filePath) loadFile(targetPath);
+            } else {
+              if (oldEl) oldEl.style.display = 'flex';
+              showToast('Move failed', 'error');
+            }
+          }
+        });
+
+        header.addEventListener('contextmenu', (e) => {
+          e.preventDefault();
+          folderPickerState.selected = node.path;
+          document.getElementById('rename-folder-current').textContent = node.name;
+          document.getElementById('rename-folder-input').value = node.name;
+          document.getElementById('rename-folder-modal').style.display = 'flex';
+        });
+
+        const children = document.createElement('div');
+        children.className = 'folder-content';
+        children.style.display = 'none';
+
+        header.addEventListener('click', () => {
+          state.currentFolder = node.path;
+          updateFolderBar();
+          const isHidden = children.style.display === 'none';
+          children.style.display = isHidden ? 'block' : 'none';
+          header.querySelector('.arrow').textContent = isHidden ? '▼' : '▶';
+        });
+
+        folderWrap.appendChild(header);
+        folderWrap.appendChild(children);
+        fragment.appendChild(folderWrap);
+
+        renderFileTree(node.children || [], children);
+        return;
+      }
+
+      const fileEl = document.createElement('div');
+      fileEl.className = 'tree-item draggable';
+      fileEl.dataset.path = node.path;
+      fileEl.draggable = true;
+      fileEl.innerHTML = `<span class="icon">📄</span>${node.name}`;
+      
+      fileEl.addEventListener('dragstart', (e) => {
+        e.dataTransfer.setData('text/plain', node.path);
+        fileEl.style.opacity = '0.5';
+      });
+      fileEl.addEventListener('dragend', () => {
+        fileEl.style.opacity = '1';
+      });
+
+      fileEl.addEventListener('click', () => loadFile(node.path));
+
+      if (state.currentFile === node.path) {
+        fileEl.classList.add('active');
+      }
+
+      fragment.appendChild(fileEl);
+    });
+
+  container.innerHTML = '';
+  container.appendChild(fragment);
 }
 
 async function loadFile(path) {
@@ -641,21 +757,37 @@ function confirmDelete() {
 }
 
 async function doDelete() {
+  if (!state.currentFile) {
+    showToast('Select a file first', 'error');
+    return;
+  }
+
+  const filePath = state.currentFile;
+  
+  // Optimistic: Langsung hapus dari UI
+  const fileEl = document.querySelector(`[data-path="${filePath}"]`);
+  if (fileEl) fileEl.style.display = 'none';
+
   try {
-    const result = await apiDelete(state.currentFile, `delete: ${state.currentFile}`);
+    const result = await apiDelete(filePath, `delete: ${filePath}`);
     if (result.success) {
       showToast('Deleted successfully');
       state.currentFile = null;
       document.getElementById('delete-modal').style.display = 'none';
-      await refreshFileTree();
+      
+      // Refresh in background
+      refreshFileTree();
+      
       fileTitleEl.textContent = 'Select a file';
       fileTagsEl.innerHTML = '';
       viewerContentEl.innerHTML = '<p class="empty-state">Select a file from the sidebar to view</p>';
       breadcrumbEl.innerHTML = '<span>content/</span>';
     } else {
+      if (fileEl) fileEl.style.display = 'flex';
       showToast(result.error || 'Delete failed', 'error');
     }
   } catch (error) {
+    if (fileEl) fileEl.style.display = 'flex';
     showToast('Delete failed', 'error');
   }
 }
@@ -942,6 +1074,48 @@ document.addEventListener('DOMContentLoaded', async () => {
   
   document.getElementById('sidebar-search').addEventListener('input', (e) => {
     searchFiles(e.target.value);
+  });
+
+  // Root Drop Zone for 'content'
+  fileTreeEl.addEventListener('dragover', (e) => {
+    if (e.target === fileTreeEl) {
+      e.preventDefault();
+      fileTreeEl.style.background = 'rgba(99, 102, 241, 0.1)';
+    }
+  });
+  fileTreeEl.addEventListener('dragleave', (e) => {
+    if (e.target === fileTreeEl) {
+      fileTreeEl.style.background = 'transparent';
+    }
+  });
+  fileTreeEl.addEventListener('drop', async (e) => {
+    if (e.target !== fileTreeEl) return;
+    e.preventDefault();
+    fileTreeEl.style.background = 'transparent';
+    
+    const filePath = e.dataTransfer.getData('text/plain');
+    const filename = fileNameFromPath(filePath);
+    const targetPath = normalizeContentPath(`content/${filename}`);
+    
+    if (filePath === targetPath) return;
+
+    const oldEl = document.querySelector(`[data-path="${filePath}"]`);
+    if (oldEl) oldEl.style.display = 'none';
+
+    const readRes = await fetch(`${API_BASE}/api/read?filename=${encodeURIComponent(filePath)}`);
+    const readData = await readRes.json();
+    if (readRes.ok) {
+      const saveRes = await apiUpdate(targetPath, readData.content, `drag-drop root: ${filePath} -> ${targetPath}`);
+      if (saveRes.success) {
+        await apiDelete(filePath, `drag-drop root: remove old ${filePath}`);
+        showToast(`Moved to Root`);
+        await refreshFileTree();
+        if (state.currentFile === filePath) loadFile(targetPath);
+      } else {
+        if (oldEl) oldEl.style.display = 'flex';
+        showToast('Move failed', 'error');
+      }
+    }
   });
 
   // Upload folder selection
