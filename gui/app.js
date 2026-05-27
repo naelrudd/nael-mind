@@ -430,17 +430,19 @@ function renderFileTree(nodes, container = fileTreeEl) {
 
         const header = document.createElement('div');
         header.className = 'tree-item tree-folder';
-        header.innerHTML = `<span class="icon">📁</span>${node.name}`;
+        header.innerHTML = `<span class="icon arrow">▶</span><span class="icon">📁</span>${node.name}`;
         header.dataset.folder = node.path;
 
         const children = document.createElement('div');
         children.className = 'folder-content';
-        children.style.display = 'block';
+        children.style.display = 'none'; // Default collapsed
 
         header.addEventListener('click', () => {
           state.currentFolder = node.path;
           updateFolderBar();
-          children.style.display = children.style.display === 'none' ? 'block' : 'none';
+          const isHidden = children.style.display === 'none';
+          children.style.display = isHidden ? 'block' : 'none';
+          header.querySelector('.arrow').textContent = isHidden ? '▼' : '▶';
         });
 
         folderWrap.appendChild(header);
@@ -821,6 +823,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   moveFilenameInputEl.addEventListener('input', updateMovePreview);
 
   document.getElementById('btn-new-file').addEventListener('click', () => openCreateModal(state.currentFolder));
+  
+  document.getElementById('sidebar-search').addEventListener('input', (e) => {
+    searchFiles(e.target.value);
+  });
 
   document.getElementById('btn-delete-cancel').addEventListener('click', () => {
     document.getElementById('delete-modal').style.display = 'none';
