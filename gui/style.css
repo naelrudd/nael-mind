@@ -296,18 +296,28 @@ html, body {
 
 /* Tree Items */
 .tree-item {
-  padding: 6px 8px;
-  border-radius: var(--radius);
+  padding: 8px 12px;
+  border-radius: 8px;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 6px;
-  transition: all 0.15s;
+  gap: 10px;
   margin-bottom: 2px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: var(--text-primary);
+  color: var(--text-muted);
+  user-select: none;
+}
+
+.tree-item.draggable {
+  cursor: grab;
+}
+
+.tree-item.draggable:active {
+  cursor: grabbing;
+}
+
+.tree-item.drop-target {
+  background: rgba(99, 102, 241, 0.3) !important;
+  outline: 2px dashed var(--accent);
 }
 
 .tree-item:hover {

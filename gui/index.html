@@ -97,12 +97,46 @@
 
   <!-- Upload Modal -->
   <div class="modal" id="upload-modal" style="display:none;">
-    <div class="modal-content">
-      <h3>Upload Markdown File</h3>
-      <input type="file" id="file-upload" accept=".md,.markdown" multiple>
+    <div class="modal-content modal-wide">
+      <h3>Upload Markdown Files</h3>
+      <p class="modal-help">Pilih folder tujuan dan file yang ingin diupload.</p>
+      
+      <div class="target-row">
+        <div>
+          <span class="target-label">Target folder</span>
+          <p class="target-value" id="upload-folder-display">content</p>
+        </div>
+        <button class="btn btn-secondary" id="btn-upload-folder-change" type="button">Change</button>
+      </div>
+
+      <label class="field-block">
+        <span>Select Files</span>
+        <input type="file" id="file-upload" accept=".md,.markdown" multiple class="text-input">
+      </label>
+
       <div class="modal-actions">
         <button class="btn btn-secondary" id="btn-upload-cancel">Cancel</button>
         <button class="btn btn-primary" id="btn-upload-confirm">Upload</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rename Folder Modal -->
+  <div class="modal" id="rename-folder-modal" style="display:none;">
+    <div class="modal-content">
+      <h3>Rename Folder</h3>
+      <p class="modal-help">Ubah nama folder. Semua file di dalamnya akan dipindahkan.</p>
+      <label class="field-block">
+        <span>Current Name</span>
+        <p class="target-value" id="rename-folder-current">folder_name</p>
+      </label>
+      <label class="field-block">
+        <span>New Name</span>
+        <input type="text" id="rename-folder-input" placeholder="new_folder_name" class="text-input">
+      </label>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" id="btn-rename-folder-cancel">Cancel</button>
+        <button class="btn btn-primary" id="btn-rename-folder-confirm">Rename</button>
       </div>
     </div>
   </div>

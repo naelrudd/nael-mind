@@ -6,6 +6,7 @@ const state = {
   isEditing: false,
   currentFolder: 'content',
   createFolder: 'content',
+  uploadFolder: 'content',
 };
 
 const fileTreeEl = document.getElementById('file-tree');
@@ -433,9 +434,51 @@ function renderFileTree(nodes, container = fileTreeEl) {
         header.innerHTML = `<span class="icon arrow">▶</span><span class="icon">📁</span>${node.name}`;
         header.dataset.folder = node.path;
 
+        // Drag and Drop: Folder as target
+        header.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          header.classList.add('drop-target');
+        });
+        header.addEventListener('dragleave', () => {
+          header.classList.remove('drop-target');
+        });
+        header.addEventListener('drop', async (e) => {
+          e.preventDefault();
+          header.classList.remove('drop-target');
+          const filePath = e.dataTransfer.getData('text/plain');
+          
+          // Move file logic
+          const targetFolder = node.path;
+          const filename = fileNameFromPath(filePath);
+          const targetPath = normalizeContentPath(targetFolder === 'content' ? `content/${filename}` : `${targetFolder}/${filename}`);
+          
+          if (filePath === targetPath) return;
+
+          const readRes = await fetch(`${API_BASE}/api/read?filename=${encodeURIComponent(filePath)}`);
+          const readData = await readRes.json();
+          if (readRes.ok) {
+            const saveRes = await apiUpdate(targetPath, readData.content, `drag-drop: ${filePath} -> ${targetPath}`);
+            if (saveRes.success) {
+              await apiDelete(filePath, `drag-drop: remove old ${filePath}`);
+              showToast(`Moved to ${node.name}`);
+              await refreshFileTree();
+              if (state.currentFile === filePath) loadFile(targetPath);
+            }
+          }
+        });
+
+        // Right click for Rename
+        header.addEventListener('contextmenu', (e) => {
+          e.preventDefault();
+          folderPickerState.selected = node.path;
+          document.getElementById('rename-folder-current').textContent = node.name;
+          document.getElementById('rename-folder-input').value = node.name;
+          document.getElementById('rename-folder-modal').style.display = 'flex';
+        });
+
         const children = document.createElement('div');
         children.className = 'folder-content';
-        children.style.display = 'none'; // Default collapsed
+        children.style.display = 'none';
 
         header.addEventListener('click', () => {
           state.currentFolder = node.path;
@@ -454,9 +497,20 @@ function renderFileTree(nodes, container = fileTreeEl) {
       }
 
       const fileEl = document.createElement('div');
-      fileEl.className = 'tree-item';
+      fileEl.className = 'tree-item draggable';
       fileEl.dataset.path = node.path;
+      fileEl.draggable = true;
       fileEl.innerHTML = `<span class="icon">📄</span>${node.name}`;
+      
+      // Drag start
+      fileEl.addEventListener('dragstart', (e) => {
+        e.dataTransfer.setData('text/plain', node.path);
+        fileEl.style.opacity = '0.5';
+      });
+      fileEl.addEventListener('dragend', () => {
+        fileEl.style.opacity = '1';
+      });
+
       fileEl.addEventListener('click', () => loadFile(node.path));
 
       if (state.currentFile === node.path) {
@@ -615,10 +669,15 @@ async function handleUpload() {
   const files = input.files;
   if (!files.length) return;
 
+  const targetFolder = normalizeContentPath(state.uploadFolder || 'content');
+
   for (const file of Array.from(files)) {
     const content = await file.text();
-    const filename = normalizeContentPath(`content/${file.name}`);
-    const result = await apiUpdate(filename, content, `add: ${file.name}`);
+    const finalPath = targetFolder === 'content' 
+      ? `content/${file.name}` 
+      : `${targetFolder}/${file.name}`;
+    
+    const result = await apiUpdate(normalizeContentPath(finalPath), content, `upload to ${targetFolder}: ${file.name}`);
     if (!result.success) {
       showToast(`Failed: ${file.name}`, 'error');
     }
@@ -627,6 +686,58 @@ async function handleUpload() {
   document.getElementById('upload-modal').style.display = 'none';
   await refreshFileTree();
   showToast('Upload complete');
+}
+
+async function renameFolder() {
+  const oldFolder = folderPickerState.selected; // This is used as the 'target' in rename context
+  const newName = String(document.getElementById('rename-folder-input').value || '').trim().replace(/^\/+|\/+$/g, '');
+  
+  if (!newName) {
+    showToast('New folder name required', 'error');
+    return;
+  }
+
+  const oldPath = normalizeContentPath(oldFolder);
+  const parentFolder = folderFromFilePath(oldPath);
+  const newPath = parentFolder === 'content' ? `content/${newName}` : `${parentFolder}/${newName}`;
+
+  if (oldPath === newPath) {
+    showToast('New name must be different', 'error');
+    return;
+  }
+
+  try {
+    // 1. Find all files in old folder
+    const filesToMove = state.allFiles.filter(f => f.path.startsWith(`${oldPath}/`));
+    
+    // 2. Move each file
+    for (const file of filesToMove) {
+      const newFilePath = file.path.replace(oldPath, newPath);
+      const readRes = await fetch(`${API_BASE}/api/read?filename=${encodeURIComponent(file.path)}`);
+      const readData = await readRes.json();
+      
+      await apiUpdate(newFilePath, readData.content, `rename folder: ${file.path} -> ${newFilePath}`);
+      await apiDelete(file.path, `rename folder: remove old ${file.path}`);
+    }
+
+    // 3. Move the .keep file specifically
+    const keepFile = filesToMove.find(f => f.path.endsWith('/.keep'));
+    if (!keepFile) {
+      // Try to find it manually if not in allFiles
+      const keepPath = `${oldPath}/.keep`;
+      const res = await apiRead(keepPath);
+      if (!res.error) {
+        await apiUpdate(`${newPath}/.keep`, res.content, `rename folder: .keep`);
+        await apiDelete(keepPath, `rename folder: remove old .keep`);
+      }
+    }
+
+    showToast(`Folder renamed to ${newName}`);
+    await refreshFileTree();
+    document.getElementById('rename-folder-modal').style.display = 'none';
+  } catch (e) {
+    showToast('Rename failed', 'error');
+  }
 }
 
 async function handleCreateFile() {
@@ -803,19 +914,24 @@ document.addEventListener('DOMContentLoaded', async () => {
   createFilenameInputEl.addEventListener('input', updateCreatePreview);
   folderPickerSearchEl.addEventListener('input', () => renderFolderPickerList(folderPickerSearchEl.value));
   btnFolderPickerCreateEl.addEventListener('click', handleCreateFolder);
-  btnFolderPickerUseEl.addEventListener('click', () => {
-    if (folderPickerState.mode === 'create') {
-      state.createFolder = folderPickerState.selected;
-      updateCreateFolderLabel();
-      updateCreatePreview();
-      closeFolderPicker();
-      return;
-    }
+    btnFolderPickerUseEl.addEventListener('click', () => {
+      if (folderPickerState.mode === 'create') {
+        state.createFolder = folderPickerState.selected;
+        updateCreateFolderLabel();
+        updateCreatePreview();
+        closeFolderPicker();
+        return;
+      } else if (folderPickerState.mode === 'upload') {
+        state.uploadFolder = folderPickerState.selected;
+        document.getElementById('upload-folder-display').textContent = state.uploadFolder;
+        closeFolderPicker();
+        return;
+      }
 
-    moveFolderDisplayEl.textContent = folderPickerState.selected;
-    updateMovePreview();
-    closeFolderPicker();
-  });
+      moveFolderDisplayEl.textContent = folderPickerState.selected;
+      updateMovePreview();
+      closeFolderPicker();
+    });
   btnFolderPickerCancelEl.addEventListener('click', closeFolderPicker);
 
   document.getElementById('btn-move-cancel').addEventListener('click', closeMoveModal);
@@ -827,6 +943,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('sidebar-search').addEventListener('input', (e) => {
     searchFiles(e.target.value);
   });
+
+  // Upload folder selection
+  document.getElementById('btn-upload-folder-change').addEventListener('click', () => openFolderPicker('upload', state.uploadFolder));
+
+  // Rename folder actions
+  document.getElementById('btn-rename-folder-cancel').addEventListener('click', () => {
+    document.getElementById('rename-folder-modal').style.display = 'none';
+  });
+  document.getElementById('btn-rename-folder-confirm').addEventListener('click', renameFolder);
 
   document.getElementById('btn-delete-cancel').addEventListener('click', () => {
     document.getElementById('delete-modal').style.display = 'none';
