@@ -1,86 +1,34 @@
 # Nael Mind - Core Identity
 
-## Basic Info
+**Name:** Natanael Rudy Hadinata (Nael)  
+**Born:** 18 April 2006 (19 tahun)  
+**Location:** Malang, Indonesia  
+**Education:** Teknik Informatika – Universitas Negeri Malang (GPA 3.83)
 
-- Name: Natanael Rudy Hadinata
-- Birth: 18 April 2006
-- Location: Malang, Indonesia
-- Education: Informatics Engineering student at Universitas Negeri Malang
-- Entry year: 2023
-- GPA: 3.83
+## Vision & Direction
 
-## Main Interests
+Membangun bisnis dan produk di bidang AI + Web Technology. Ingin menjadi AI builder yang bisa menciptakan value dan income.
 
-- AI workflow and systems
-- Web development
-- Startup and business through technology
-- Content monetization
-- Music
+## Main Interests (2026)
 
-## Skills
+- AI Systems, Agents, & Workflows
+- Web Development & Full-Stack Product Building
+- Startup Strategy & Business Development
+- Content Creation & Monetization
+- Music sebagai creative identity
 
-- Python
-- Java
-- SQL
-- Git
-- Web development
-- Machine learning basics
-- Data handling and scripting
+## Music Identity
 
-## Organizations
-
-- Christian Fellowship
-- Music Division Leader, UKM Seni FT UM
-- Evangelist and Secretary Treasurer, PKAU
-
-## Music
-
-- Lead guitarist of Lucien Sunmoon
-- 15+ released songs
+- Lead Guitarist – **Lucien Sunmoon**
+- 15+ original songs
 - 20+ live performances
-- 2nd place Rector Cup East Java Band Festival (2023)
-- 3rd place East Java Anniversary Band Competition (2022)
+- Achievement: 2nd Place Rector Cup East Java Band Festival (2023)
 
-## Core Direction
+## Personality & Working Style
 
-- Build AI-based business
-- Develop web and AI technology products
-- Content monetization
-- Startup development
-- Academics and internship as secondary priorities
-- Music as identity, not main growth focus
+- High curiosity, cepat belajar
+- Lebih suka praktik daripada teori panjang
+- Suka tantangan yang masuk akal
+- Direct feedback dihargai
 
-## Working Style
-
-- Hands-on learning over theory
-- Step-by-step explanations
-- Concise first, then detail
-- Guided debugging works best
-- Learns best through building projects
-
-## Decision Style
-
-- Prefers objective pros and cons
-- Final decision should stay user-driven
-- Wants practical, realistic suggestions
-
-## Communication Style
-
-- Casual for learning and technical discussion
-- Formal only for academic tasks or documents
-- Direct and honest feedback preferred
-- Dislikes vague or generic responses
-
-## System Vision
-
-- Centralize personal information
-- Retrieve relevant context across AI tools
-- Prevent repeated re-explaining
-- Act as a single source of truth for AI interactions
-
-## Important Notes
-
-- Avoid generic answers
-- Always use context when available
-- Prefer practical, actionable output
-- Keep responses grounded and evidence-based
+**Catatan untuk AI:** Treat me as a serious builder who wants real progress, not just theory.
