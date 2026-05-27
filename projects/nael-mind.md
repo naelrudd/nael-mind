@@ -4,12 +4,21 @@ Status: Active — MVP phase
 Last updated: 2026-05-27
 
 ## Overview
-Personal knowledge system that acts as single source of truth
+Personal knowledge system that acts as a single source of truth
 for all AI interactions. Any chatbot can understand Nael
 without repeated re-explaining.
 
 ## Problem Solved
 "Tired of explaining myself to every new chatbot session."
+
+## Core Goal
+
+Single source of truth for all chatbots.
+
+## Future
+
+- All chatbots can access the same memory
+- Context stays consistent across sessions
 
 ## Architecture (current)
 GitHub repo (MD files)

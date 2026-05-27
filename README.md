@@ -7,7 +7,9 @@ Single source of truth so any AI can understand Nael
 without repeated re-explaining.
 
 ## Structure
-├── identity.md          ← core profile & background
+├── master-context.md    ← assistant context for AI
+├── current-focus.md      ← current priorities
+├── Identity.md          ← core profile & background
 ├── preferences.md       ← how AI should assist
 ├── memories/            ← session logs & key decisions
 │   └── YYYY-MM-DD_title.md
@@ -16,7 +18,9 @@ without repeated re-explaining.
 
 ## How to Use (for AI)
 Fetch these raw URLs before answering:
-- identity: https://raw.githubusercontent.com/naelrudd/nael-mind/main/identity.md
+- master context: https://raw.githubusercontent.com/naelrudd/nael-mind/main/master-context.md
+- current focus: https://raw.githubusercontent.com/naelrudd/nael-mind/main/current-focus.md
+- identity: https://raw.githubusercontent.com/naelrudd/nael-mind/main/Identity.md
 - preferences: https://raw.githubusercontent.com/naelrudd/nael-mind/main/preferences.md
 
 ## Update Flow
