@@ -29,6 +29,11 @@ const createFolderNameInputEl = document.getElementById('create-folder-name-inpu
 const createFolderBtnEl = document.getElementById('btn-create-folder');
 const folderDeleteBtnEl = document.getElementById('btn-folder-delete');
 const createPathPreviewEl = document.getElementById('create-path-preview');
+const moveModalEl = document.getElementById('move-modal');
+const moveFolderSelectEl = document.getElementById('move-folder-select');
+const moveFolderInputEl = document.getElementById('move-folder-input');
+const moveFilenameInputEl = document.getElementById('move-filename-input');
+const movePathPreviewEl = document.getElementById('move-path-preview');
 const toastEl = document.getElementById('toast');
 
 function normalizeContentPath(path = '') {
@@ -114,9 +119,16 @@ function updateCreatePreview() {
 function syncFolderContext(folder) {
   const normalized = normalizeContentPath(folder || 'content');
   state.currentFolder = normalized;
-  if (folderContextEl) {
-    folderContextEl.textContent = `Folder: ${toDisplayPath(normalized)}`;
+  updateFolderBar();
+}
+
+function updateFolderBar() {
+  if (!folderContextEl) {
+    return;
   }
+
+  const display = toDisplayPath(state.currentFolder);
+  folderContextEl.textContent = display === 'content' ? 'Folder: content' : `Folder: content/${display}`;
 }
 
 function openCreateModal(folder = state.currentFolder) {
@@ -145,6 +157,40 @@ function renderCreateFolderOptions(query = '') {
     createFolderSelectEl.appendChild(option);
   }
   createFolderSelectEl.value = state.createFolder;
+}
+
+function renderMoveFolderOptions(query = '') {
+  const folders = filterFolders(query);
+  moveFolderSelectEl.innerHTML = folders.map((folder) => `<option value="${folder}">${folder}</option>`).join('');
+  moveFolderSelectEl.value = state.currentFolder;
+}
+
+function updateMovePreview() {
+  const folder = normalizeContentPath(moveFolderSelectEl.value || state.currentFolder || 'content');
+  const subfolder = String(moveFolderInputEl.value || '').trim().replace(/^\/+|\/+$/g, '');
+  const filename = String(moveFilenameInputEl.value || '').trim();
+  const finalFolder = [folder, subfolder].filter(Boolean).join('/').replace(/\/+/g, '/');
+  const normalizedFolder = normalizeContentPath(finalFolder || 'content');
+  const target = filename ? (normalizedFolder === 'content' ? `content/${filename}` : `${normalizedFolder}/${filename}`) : `${normalizedFolder}/`;
+  movePathPreviewEl.textContent = `Target: ${target}`;
+}
+
+function openMoveModal(targetFolder = state.currentFolder) {
+  if (!state.currentFile) {
+    showToast('Select a file first', 'error');
+    return;
+  }
+
+  renderMoveFolderOptions();
+  moveFolderSelectEl.value = normalizeContentPath(targetFolder || 'content');
+  moveFolderInputEl.value = '';
+  moveFilenameInputEl.value = fileNameFromPath(state.currentFile);
+  updateMovePreview();
+  moveModalEl.style.display = 'flex';
+}
+
+function closeMoveModal() {
+  moveModalEl.style.display = 'none';
 }
 
 function escapeHtml(text) {
@@ -359,12 +405,15 @@ function renderFileTree(nodes, container = fileTreeEl) {
         const header = document.createElement('div');
         header.className = 'tree-item tree-folder';
         header.innerHTML = `<span class="icon">📁</span>${node.name}`;
+        header.dataset.folder = node.path;
 
         const children = document.createElement('div');
         children.className = 'folder-content';
         children.style.display = 'block';
 
         header.addEventListener('click', () => {
+          state.currentFolder = node.path;
+          updateFolderBar();
           children.style.display = children.style.display === 'none' ? 'block' : 'none';
         });
 
@@ -639,6 +688,49 @@ async function handleDeleteFolder() {
   updateCreatePreview();
 }
 
+async function handleMoveFile() {
+  if (!state.currentFile) {
+    showToast('Select a file first', 'error');
+    return;
+  }
+
+  const folder = normalizeContentPath(moveFolderSelectEl.value || state.currentFolder || 'content');
+  const subfolder = String(moveFolderInputEl.value || '').trim().replace(/^\/+|\/+$/g, '');
+  const filename = String(moveFilenameInputEl.value || '').trim();
+  if (!filename) {
+    showToast('Filename required', 'error');
+    return;
+  }
+
+  const finalFolder = [folder, subfolder].filter(Boolean).join('/').replace(/\/+/g, '/');
+  const targetPath = normalizeContentPath(finalFolder === 'content' ? `content/${filename}` : `${finalFolder}/${filename}`);
+  if (targetPath === state.currentFile) {
+    showToast('Nothing changed', 'error');
+    return;
+  }
+
+  const readRes = await fetch(`${API_BASE}/api/read?filename=${encodeURIComponent(state.currentFile)}`);
+  const readData = await readRes.json();
+  if (!readRes.ok) {
+    showToast(readData.error || 'Failed to read file', 'error');
+    return;
+  }
+
+  const saveRes = await apiUpdate(targetPath, readData.content, `move: ${state.currentFile} -> ${targetPath}`);
+  if (!saveRes.success) {
+    showToast(saveRes.error || 'Failed to move file', 'error');
+    return;
+  }
+
+  await apiDelete(state.currentFile, `remove old after move: ${state.currentFile}`);
+  state.currentFile = targetPath;
+  syncFolderContext(folderFromFilePath(targetPath));
+  await refreshFileTree();
+  await loadFile(targetPath);
+  closeMoveModal();
+  showToast(`Moved to ${targetPath}`);
+}
+
 function searchFiles(query) {
   const q = String(query || '').trim().toLowerCase();
   if (!q) {
@@ -671,6 +763,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('btn-save').addEventListener('click', saveFile);
   document.getElementById('btn-cancel').addEventListener('click', cancelEdit);
   document.getElementById('btn-delete').addEventListener('click', confirmDelete);
+  document.getElementById('btn-move-selected-folder').addEventListener('click', () => openMoveModal(state.currentFolder));
+  document.getElementById('btn-new-file-here').addEventListener('click', () => openCreateModal(state.currentFolder));
 
   document.getElementById('btn-upload').addEventListener('click', () => {
     document.getElementById('upload-modal').style.display = 'flex';
@@ -691,6 +785,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   createFolderNameInputEl.addEventListener('input', updateCreatePreview);
   createFolderBtnEl.addEventListener('click', handleCreateFolder);
   folderDeleteBtnEl.addEventListener('click', handleDeleteFolder);
+
+  document.getElementById('btn-move-cancel').addEventListener('click', closeMoveModal);
+  document.getElementById('btn-move-confirm').addEventListener('click', handleMoveFile);
+  moveFolderSelectEl.addEventListener('change', updateMovePreview);
+  moveFolderInputEl.addEventListener('input', updateMovePreview);
+  moveFilenameInputEl.addEventListener('input', updateMovePreview);
 
   document.getElementById('btn-new-file').addEventListener('click', () => openCreateModal(state.currentFolder));
 

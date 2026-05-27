@@ -77,6 +77,10 @@
             <input type="text" id="edit-tags" placeholder="Tags: ai, business, session (comma separated)" class="tags-input">
           </div>
           <div class="folder-context" id="folder-context">Folder: content</div>
+          <div class="folder-bar">
+            <button class="btn btn-secondary btn-small" id="btn-move-selected-folder" type="button">Move Here</button>
+            <button class="btn btn-secondary btn-small" id="btn-new-file-here" type="button">New File Here</button>
+          </div>
           <div class="editor-panes">
             <textarea id="edit-content" placeholder="Write markdown here..." class="edit-textarea"></textarea>
             <div class="preview-pane" id="preview-pane">
@@ -149,6 +153,33 @@
       <div class="modal-actions">
         <button class="btn btn-secondary" id="btn-delete-cancel">Cancel</button>
         <button class="btn btn-danger" id="btn-delete-confirm">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Move File Modal -->
+  <div class="modal" id="move-modal" style="display:none;">
+    <div class="modal-content modal-wide">
+      <h3>Move File</h3>
+      <p class="modal-help">Pindahkan file ke folder lain tanpa mengetik path manual.</p>
+      <div class="create-grid">
+        <label class="full">
+          <span>Target folder</span>
+          <select id="move-folder-select" class="select-input"></select>
+        </label>
+        <label class="full">
+          <span>New subfolder (optional)</span>
+          <input type="text" id="move-folder-input" placeholder="projects" class="text-input">
+        </label>
+        <label class="full">
+          <span>Filename</span>
+          <input type="text" id="move-filename-input" placeholder="gabta.md" class="text-input">
+        </label>
+      </div>
+      <p class="modal-preview" id="move-path-preview">Target: content/</p>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" id="btn-move-cancel">Cancel</button>
+        <button class="btn btn-primary" id="btn-move-confirm">Move</button>
       </div>
     </div>
   </div>
