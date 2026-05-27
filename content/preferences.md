@@ -2,7 +2,7 @@
 
 ## Explanation Style
 
-- Concise first → detail later
+- Concise first -> detail later
 - Step-by-step yang jelas dan actionable
 - Gunakan contoh nyata
 - Hindari wall of text

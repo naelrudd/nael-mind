@@ -21,21 +21,23 @@ Single source of truth for all chatbots.
 - Context stays consistent across sessions
 
 ## Architecture (current)
-GitHub repo (MD files)
+GitHub repo (`content/` MD files)
         ↓
 Raw URL fetch by chatbot
         ↓
 Injected as context at start of session
 
 ## File Structure
-├── identity.md
-├── preferences.md
-├── goals.md
-├── memories/
-└── projects/
+├── content/Identity.md
+├── content/preferences.md
+├── content/goals.md
+├── content/current-focus.md
+├── content/master-context.md
+├── content/memories/
+└── content/projects/
 
 ## Update Flow
-Edit MD → commit to GitHub → all bots get latest
+Edit MD in `content/` → commit to GitHub → all bots get latest
 
 ## Future Ideas
 - Auto memory logging after each session

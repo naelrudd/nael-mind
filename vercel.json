@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/gui/index.html"
+    },
+    {
+      "source": "/gui",
+      "destination": "/gui/index.html"
+    }
+  ]
+}

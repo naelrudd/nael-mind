@@ -1,4 +1,4 @@
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
@@ -9,9 +9,25 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'filename required' });
   }
 
+  const normalizeContentPath = (input) => {
+    const value = String(input || '').trim().replace(/^\/+/, '').replace(/\/+$/, '');
+
+    if (!value || value === 'content') {
+      return 'content';
+    }
+
+    const parts = value.split('/');
+    if (parts.some((part) => part === '.' || part === '..')) {
+      throw new Error('Invalid path');
+    }
+
+    return value.startsWith('content/') ? value : `content/${value}`;
+  };
+
+  const filePath = normalizeContentPath(filename);
   const repo = 'naelrudd/nael-mind';
   const token = process.env.GITHUB_PAT;
-  const apiUrl = `https://api.github.com/repos/${repo}/contents/${filename}`;
+  const apiUrl = `https://api.github.com/repos/${repo}/contents/${filePath}`;
 
   try {
     // 1. Get SHA of file to delete
@@ -59,7 +75,7 @@ export default async function handler(req, res) {
 
     return res.status(200).json({
       success: true,
-      filename,
+      filename: filePath,
       deleted: true,
       commit: result.commit?.sha,
     });

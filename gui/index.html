@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🧠 Nael Mind</title>
+  <base href="/gui/" target="_blank">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo">
+        <h1>🧠 Nael Mind</h1>
+        <p>Personal Knowledge System</p>
+      </div>
+
+      <nav class="nav">
+        <button class="nav-btn active" data-view="files">
+          📁 Files
+        </button>
+        <button class="nav-btn" data-view="tags">
+          🏷️ Tags
+        </button>
+        <button class="nav-btn" data-view="search">
+          🔍 Search
+        </button>
+      </nav>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="btn-new-file">
+          + New File
+        </button>
+        <button class="btn btn-secondary" id="btn-upload">
+          📤 Upload MD
+        </button>
+      </div>
+
+      <div class="file-tree" id="file-tree">
+        <!-- Dynamic file list -->
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main">
+      <!-- Toolbar -->
+      <div class="toolbar">
+        <div class="breadcrumb" id="breadcrumb">
+          <span>content/</span>
+        </div>
+        <div class="toolbar-actions">
+          <button class="btn btn-icon" id="btn-edit" title="Edit">✏️</button>
+          <button class="btn btn-icon" id="btn-delete" title="Delete">🗑️</button>
+          <button class="btn btn-icon" id="btn-save" title="Save" style="display:none;">💾</button>
+          <button class="btn btn-icon" id="btn-cancel" title="Cancel" style="display:none;">❌</button>
+        </div>
+      </div>
+
+      <!-- Editor / Viewer -->
+      <div class="editor-container">
+        <!-- View Mode -->
+        <div class="viewer" id="viewer">
+          <div class="viewer-header">
+            <h2 id="file-title">Select a file</h2>
+            <div class="tags" id="file-tags"></div>
+          </div>
+          <div class="viewer-content" id="viewer-content">
+            <p class="empty-state">Select a file from the sidebar to view</p>
+          </div>
+        </div>
+
+        <!-- Edit Mode -->
+        <div class="editor" id="editor" style="display:none;">
+          <div class="editor-header">
+            <input type="text" id="edit-filename" placeholder="filename.md" class="filename-input">
+            <input type="text" id="edit-tags" placeholder="Tags: ai, business, session (comma separated)" class="tags-input">
+          </div>
+          <div class="editor-panes">
+            <textarea id="edit-content" placeholder="Write markdown here..." class="edit-textarea"></textarea>
+            <div class="preview-pane" id="preview-pane">
+              <div class="preview-content" id="preview-content"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Upload Modal -->
+  <div class="modal" id="upload-modal" style="display:none;">
+    <div class="modal-content">
+      <h3>Upload Markdown File</h3>
+      <input type="file" id="file-upload" accept=".md,.markdown" multiple>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" id="btn-upload-cancel">Cancel</button>
+        <button class="btn btn-primary" id="btn-upload-confirm">Upload</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Confirm Modal -->
+  <div class="modal" id="delete-modal" style="display:none;">
+    <div class="modal-content">
+      <h3>Delete File?</h3>
+      <p id="delete-filename"></p>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" id="btn-delete-cancel">Cancel</button>
+        <button class="btn btn-danger" id="btn-delete-confirm">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" style="display:none;"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

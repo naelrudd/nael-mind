@@ -1,7 +1,22 @@
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
+
+  const normalizeContentPath = (input) => {
+    const value = String(input || '').trim().replace(/^\/+/, '').replace(/\/+$/, '');
+
+    if (!value || value === 'content') {
+      return 'content';
+    }
+
+    const parts = value.split('/');
+    if (parts.some((part) => part === '.' || part === '..')) {
+      throw new Error('Invalid path');
+    }
+
+    return value.startsWith('content/') ? value : `content/${value}`;
+  };
 
   const { filename } = req.query;
 
@@ -9,9 +24,10 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'filename query param required' });
   }
 
+  const filePath = normalizeContentPath(filename);
   const repo = 'naelrudd/nael-mind';
   const token = process.env.GITHUB_PAT;
-  const apiUrl = `https://api.github.com/repos/${repo}/contents/${filename}`;
+  const apiUrl = `https://api.github.com/repos/${repo}/contents/${filePath}`;
 
   try {
     const response = await fetch(apiUrl, {
@@ -29,7 +45,7 @@ export default async function handler(req, res) {
     const content = Buffer.from(data.content, 'base64').toString('utf8');
 
     return res.status(200).json({
-      filename,
+      filename: filePath,
       content,
       sha: data.sha,
       url: data.html_url,
