@@ -108,36 +108,19 @@
   <div class="modal" id="create-modal" style="display:none;">
     <div class="modal-content modal-wide">
       <h3>Create File</h3>
-      <p class="modal-help">Pilih folder dulu. Kalau isi folder baru, folder akan dibuat saat file disimpan.</p>
-      <div class="create-grid">
-        <label>
-          <span>Search folder</span>
-          <input type="text" id="create-folder-filter" placeholder="Search folder..." class="text-input">
-        </label>
-        <label class="full">
-          <span>Parent folder</span>
-          <select id="create-folder-select" class="select-input"></select>
-        </label>
-        <label>
-          <span>New subfolder (optional)</span>
-          <input type="text" id="create-folder-input" placeholder="projects/ideas" class="text-input">
-        </label>
-        <label>
-          <span>Filename</span>
-          <input type="text" id="create-filename-input" placeholder="note.md" class="text-input">
-        </label>
-      </div>
-      <p class="modal-preview" id="create-path-preview">Target: content/</p>
-      <div class="folder-tools">
-        <label>
-          <span>New folder name</span>
-          <input type="text" id="create-folder-name-input" placeholder="ideas" class="text-input">
-        </label>
-        <div class="folder-tools-actions">
-          <button class="btn btn-secondary" id="btn-create-folder" type="button">New Folder</button>
-          <button class="btn btn-danger" id="btn-folder-delete" type="button">Delete Folder</button>
+      <p class="modal-help">Pilih folder tujuan, lalu isi nama file.</p>
+      <div class="target-row">
+        <div>
+          <span class="target-label">Target folder</span>
+          <p class="target-value" id="create-folder-display">content</p>
         </div>
+        <button class="btn btn-secondary" id="btn-create-folder-change" type="button">Change</button>
       </div>
+      <label class="field-block">
+        <span>Filename</span>
+        <input type="text" id="create-filename-input" placeholder="gabta.md" class="text-input">
+      </label>
+      <p class="modal-preview" id="create-path-preview">Target: content/gabta.md</p>
       <div class="modal-actions">
         <button class="btn btn-secondary" id="btn-create-cancel">Cancel</button>
         <button class="btn btn-primary" id="btn-create-confirm">Create</button>
@@ -161,25 +144,49 @@
   <div class="modal" id="move-modal" style="display:none;">
     <div class="modal-content modal-wide">
       <h3>Move File</h3>
-      <p class="modal-help">Pindahkan file ke folder lain tanpa mengetik path manual.</p>
-      <div class="create-grid">
-        <label class="full">
-          <span>Target folder</span>
-          <select id="move-folder-select" class="select-input"></select>
-        </label>
-        <label class="full">
-          <span>New subfolder (optional)</span>
-          <input type="text" id="move-folder-input" placeholder="projects" class="text-input">
-        </label>
-        <label class="full">
-          <span>Filename</span>
-          <input type="text" id="move-filename-input" placeholder="gabta.md" class="text-input">
-        </label>
+      <p class="modal-help">Pilih folder tujuan, lalu nama file yang baru.</p>
+      <div class="target-row">
+        <div>
+          <span class="target-label">Target folder</span>
+          <p class="target-value" id="move-folder-display">content</p>
+        </div>
+        <button class="btn btn-secondary" id="btn-move-folder-change" type="button">Change</button>
       </div>
-      <p class="modal-preview" id="move-path-preview">Target: content/</p>
+      <label class="field-block">
+        <span>Filename</span>
+        <input type="text" id="move-filename-input" placeholder="gabta.md" class="text-input">
+      </label>
+      <p class="modal-preview" id="move-path-preview">Target: content/gabta.md</p>
       <div class="modal-actions">
         <button class="btn btn-secondary" id="btn-move-cancel">Cancel</button>
         <button class="btn btn-primary" id="btn-move-confirm">Move</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Folder Picker Modal -->
+  <div class="modal" id="folder-picker-modal" style="display:none;">
+    <div class="modal-content modal-wide">
+      <h3>Choose Folder</h3>
+      <p class="modal-help">Cari folder atau pilih dari daftar.</p>
+      <label class="field-block">
+        <span>Search</span>
+        <input type="text" id="folder-picker-search" placeholder="Search folder..." class="text-input">
+      </label>
+      <div class="folder-picker-selected" id="folder-picker-selected">content</div>
+      <div class="folder-picker-list" id="folder-picker-list"></div>
+      <div class="folder-picker-advanced">
+        <label class="field-block">
+          <span>New folder name</span>
+          <input type="text" id="folder-picker-new-name" placeholder="projects/new-idea" class="text-input">
+        </label>
+        <div class="modal-actions compact">
+          <button class="btn btn-secondary" id="btn-folder-picker-create" type="button">Create Folder</button>
+          <button class="btn btn-primary" id="btn-folder-picker-use" type="button">Use Folder</button>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" id="btn-folder-picker-cancel">Cancel</button>
       </div>
     </div>
   </div>

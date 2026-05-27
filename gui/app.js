@@ -21,20 +21,29 @@ const editTagsEl = document.getElementById('edit-tags');
 const editContentEl = document.getElementById('edit-content');
 const folderContextEl = document.getElementById('folder-context');
 const createModalEl = document.getElementById('create-modal');
-const createFolderFilterEl = document.getElementById('create-folder-filter');
-const createFolderSelectEl = document.getElementById('create-folder-select');
-const createFolderInputEl = document.getElementById('create-folder-input');
 const createFilenameInputEl = document.getElementById('create-filename-input');
-const createFolderNameInputEl = document.getElementById('create-folder-name-input');
-const createFolderBtnEl = document.getElementById('btn-create-folder');
-const folderDeleteBtnEl = document.getElementById('btn-folder-delete');
 const createPathPreviewEl = document.getElementById('create-path-preview');
+const createFolderDisplayEl = document.getElementById('create-folder-display');
+const btnCreateFolderChangeEl = document.getElementById('btn-create-folder-change');
 const moveModalEl = document.getElementById('move-modal');
-const moveFolderSelectEl = document.getElementById('move-folder-select');
-const moveFolderInputEl = document.getElementById('move-folder-input');
 const moveFilenameInputEl = document.getElementById('move-filename-input');
+const moveFolderDisplayEl = document.getElementById('move-folder-display');
+const btnMoveFolderChangeEl = document.getElementById('btn-move-folder-change');
 const movePathPreviewEl = document.getElementById('move-path-preview');
+const folderPickerModalEl = document.getElementById('folder-picker-modal');
+const folderPickerSearchEl = document.getElementById('folder-picker-search');
+const folderPickerSelectedEl = document.getElementById('folder-picker-selected');
+const folderPickerListEl = document.getElementById('folder-picker-list');
+const folderPickerNewNameEl = document.getElementById('folder-picker-new-name');
+const btnFolderPickerCreateEl = document.getElementById('btn-folder-picker-create');
+const btnFolderPickerUseEl = document.getElementById('btn-folder-picker-use');
+const btnFolderPickerCancelEl = document.getElementById('btn-folder-picker-cancel');
 const toastEl = document.getElementById('toast');
+
+const folderPickerState = {
+  mode: 'create',
+  selected: 'content',
+};
 
 function normalizeContentPath(path = '') {
   const value = String(path).trim().replace(/^\/+/, '').replace(/\/+$/, '');
@@ -91,9 +100,54 @@ function filterFolders(query) {
   return folders.filter((folder) => folder.toLowerCase().includes(q));
 }
 
+function updateCreateFolderLabel() {
+  if (createFolderDisplayEl) {
+    createFolderDisplayEl.textContent = state.createFolder;
+  }
+}
+
+function updateMoveFolderLabel() {
+  if (moveFolderDisplayEl) {
+    moveFolderDisplayEl.textContent = folderPickerState.selected;
+  }
+}
+
+function renderFolderPickerList(query = '') {
+  const folders = filterFolders(query);
+  folderPickerListEl.innerHTML = '';
+
+  folders.forEach((folder) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = `folder-picker-item ${folder === folderPickerState.selected ? 'active' : ''}`;
+    button.innerHTML = `<span>📁 ${folder}</span><span>Use</span>`;
+    button.addEventListener('click', () => {
+      folderPickerState.selected = folder;
+      folderPickerSelectedEl.textContent = `Selected: ${folder}`;
+      renderFolderPickerList(folderPickerSearchEl.value || '');
+      updateCreateFolderLabel();
+      updateMoveFolderLabel();
+    });
+    folderPickerListEl.appendChild(button);
+  });
+}
+
+function openFolderPicker(mode, targetFolder = state.currentFolder) {
+  folderPickerState.mode = mode;
+  folderPickerState.selected = normalizeContentPath(targetFolder || 'content');
+  folderPickerSearchEl.value = '';
+  folderPickerNewNameEl.value = '';
+  folderPickerSelectedEl.textContent = `Selected: ${folderPickerState.selected}`;
+  renderFolderPickerList('');
+  folderPickerModalEl.style.display = 'flex';
+}
+
+function closeFolderPicker() {
+  folderPickerModalEl.style.display = 'none';
+}
+
 function buildCreateTarget() {
-  const parent = normalizeContentPath(createFolderSelectEl.value || state.createFolder || 'content');
-  const subfolder = String(createFolderInputEl.value || '').trim().replace(/^\/+|\/+$/g, '');
+  const parent = normalizeContentPath(state.createFolder || 'content');
   const filename = String(createFilenameInputEl.value || '').trim().replace(/^\/+/, '');
 
   if (!filename) {
@@ -104,11 +158,9 @@ function buildCreateTarget() {
     return { path: '', error: 'Filename must end with .md' };
   }
 
-  const finalFolder = [parent, subfolder].filter(Boolean).join('/').replace(/\/+/g, '/');
-  const normalizedFolder = normalizeContentPath(finalFolder || 'content');
-  const finalPath = normalizedFolder === 'content' ? `content/${filename}` : `${normalizedFolder}/${filename}`;
+  const finalPath = parent === 'content' ? `content/${filename}` : `${parent}/${filename}`;
 
-  return { path: normalizeContentPath(finalPath), folder: normalizedFolder };
+  return { path: normalizeContentPath(finalPath), folder: parent };
 }
 
 function updateCreatePreview() {
@@ -133,12 +185,8 @@ function updateFolderBar() {
 
 function openCreateModal(folder = state.currentFolder) {
   state.createFolder = normalizeContentPath(folder || 'content');
-  renderCreateFolderOptions();
-  createFolderSelectEl.value = state.createFolder;
-  createFolderFilterEl.value = '';
-  createFolderInputEl.value = '';
   createFilenameInputEl.value = '';
-  createFolderNameInputEl.value = '';
+  updateCreateFolderLabel();
   updateCreatePreview();
   createModalEl.style.display = 'flex';
 }
@@ -148,30 +196,13 @@ function closeCreateModal() {
 }
 
 function renderCreateFolderOptions(query = '') {
-  const folders = filterFolders(query);
-  createFolderSelectEl.innerHTML = folders.map((folder) => `<option value="${folder}">${folder}</option>`).join('');
-  if (!folders.includes(state.createFolder)) {
-    const option = document.createElement('option');
-    option.value = state.createFolder;
-    option.textContent = state.createFolder;
-    createFolderSelectEl.appendChild(option);
-  }
-  createFolderSelectEl.value = state.createFolder;
-}
-
-function renderMoveFolderOptions(query = '') {
-  const folders = filterFolders(query);
-  moveFolderSelectEl.innerHTML = folders.map((folder) => `<option value="${folder}">${folder}</option>`).join('');
-  moveFolderSelectEl.value = state.currentFolder;
+  return filterFolders(query);
 }
 
 function updateMovePreview() {
-  const folder = normalizeContentPath(moveFolderSelectEl.value || state.currentFolder || 'content');
-  const subfolder = String(moveFolderInputEl.value || '').trim().replace(/^\/+|\/+$/g, '');
+  const folder = normalizeContentPath(folderPickerState.selected || state.currentFolder || 'content');
   const filename = String(moveFilenameInputEl.value || '').trim();
-  const finalFolder = [folder, subfolder].filter(Boolean).join('/').replace(/\/+/g, '/');
-  const normalizedFolder = normalizeContentPath(finalFolder || 'content');
-  const target = filename ? (normalizedFolder === 'content' ? `content/${filename}` : `${normalizedFolder}/${filename}`) : `${normalizedFolder}/`;
+  const target = filename ? (folder === 'content' ? `content/${filename}` : `${folder}/${filename}`) : `${folder}/`;
   movePathPreviewEl.textContent = `Target: ${target}`;
 }
 
@@ -181,9 +212,8 @@ function openMoveModal(targetFolder = state.currentFolder) {
     return;
   }
 
-  renderMoveFolderOptions();
-  moveFolderSelectEl.value = normalizeContentPath(targetFolder || 'content');
-  moveFolderInputEl.value = '';
+  folderPickerState.selected = normalizeContentPath(targetFolder || 'content');
+  updateMoveFolderLabel();
   moveFilenameInputEl.value = fileNameFromPath(state.currentFile);
   updateMovePreview();
   moveModalEl.style.display = 'flex';
@@ -358,10 +388,6 @@ async function apiDelete(filename, commitMessage) {
   return response.json();
 }
 
-function collectCreateFolderOptions() {
-  renderCreateFolderOptions(createFolderFilterEl?.value || '');
-}
-
 async function fetchTree(path = 'content') {
   const data = await apiList(path);
   const files = Array.isArray(data.files) ? data.files : [];
@@ -451,7 +477,6 @@ async function refreshFileTree() {
   const tree = await fetchTree('content');
   state.allFiles = flattenTree(tree, []).filter((node) => node.type === 'file');
   renderFileTree(tree);
-  collectCreateFolderOptions();
 }
 
 async function loadFile(path) {
@@ -624,8 +649,8 @@ async function handleCreateFile() {
 }
 
 async function handleCreateFolder() {
-  const parent = normalizeContentPath(createFolderSelectEl.value || state.createFolder || 'content');
-  const name = String(createFolderNameInputEl.value || '').trim().replace(/^\/+|\/+$/g, '');
+  const parent = normalizeContentPath(folderPickerState.selected || state.createFolder || 'content');
+  const name = String(folderPickerNewNameEl.value || '').trim().replace(/^\/+|\/+$/g, '');
 
   if (!name) {
     showToast('Folder name required', 'error');
@@ -646,17 +671,16 @@ async function handleCreateFolder() {
     return;
   }
 
-  createFolderNameInputEl.value = '';
+  folderPickerNewNameEl.value = '';
   showToast(`Folder created: ${targetFolder}`);
   await refreshFileTree();
   state.createFolder = normalizeContentPath(targetFolder);
-  renderCreateFolderOptions(createFolderFilterEl.value || '');
-  createFolderSelectEl.value = state.createFolder;
+  updateCreateFolderLabel();
   updateCreatePreview();
 }
 
 async function handleDeleteFolder() {
-  const target = normalizeContentPath(createFolderSelectEl.value || state.createFolder || 'content');
+  const target = normalizeContentPath(folderPickerState.selected || state.createFolder || 'content');
   if (target === 'content') {
     showToast('Cannot delete content root', 'error');
     return;
@@ -683,8 +707,7 @@ async function handleDeleteFolder() {
   showToast(`Folder deleted: ${target}`);
   await refreshFileTree();
   state.createFolder = 'content';
-  renderCreateFolderOptions(createFolderFilterEl.value || '');
-  createFolderSelectEl.value = state.createFolder;
+  updateCreateFolderLabel();
   updateCreatePreview();
 }
 
@@ -694,16 +717,14 @@ async function handleMoveFile() {
     return;
   }
 
-  const folder = normalizeContentPath(moveFolderSelectEl.value || state.currentFolder || 'content');
-  const subfolder = String(moveFolderInputEl.value || '').trim().replace(/^\/+|\/+$/g, '');
+  const folder = normalizeContentPath(folderPickerState.selected || state.currentFolder || 'content');
   const filename = String(moveFilenameInputEl.value || '').trim();
   if (!filename) {
     showToast('Filename required', 'error');
     return;
   }
 
-  const finalFolder = [folder, subfolder].filter(Boolean).join('/').replace(/\/+/g, '/');
-  const targetPath = normalizeContentPath(finalFolder === 'content' ? `content/${filename}` : `${finalFolder}/${filename}`);
+  const targetPath = normalizeContentPath(folder === 'content' ? `content/${filename}` : `${folder}/${filename}`);
   if (targetPath === state.currentFile) {
     showToast('Nothing changed', 'error');
     return;
@@ -765,6 +786,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('btn-delete').addEventListener('click', confirmDelete);
   document.getElementById('btn-move-selected-folder').addEventListener('click', () => openMoveModal(state.currentFolder));
   document.getElementById('btn-new-file-here').addEventListener('click', () => openCreateModal(state.currentFolder));
+  btnCreateFolderChangeEl.addEventListener('click', () => openFolderPicker('create', state.createFolder));
+  btnMoveFolderChangeEl.addEventListener('click', () => openFolderPicker('move', folderPickerState.selected || state.currentFolder));
 
   document.getElementById('btn-upload').addEventListener('click', () => {
     document.getElementById('upload-modal').style.display = 'flex';
@@ -775,21 +798,26 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('btn-upload-confirm').addEventListener('click', handleUpload);
   document.getElementById('btn-create-cancel').addEventListener('click', closeCreateModal);
   document.getElementById('btn-create-confirm').addEventListener('click', handleCreateFile);
-  createFolderFilterEl.addEventListener('input', () => renderCreateFolderOptions(createFolderFilterEl.value));
-  createFolderSelectEl.addEventListener('change', () => {
-    state.createFolder = normalizeContentPath(createFolderSelectEl.value || 'content');
-    updateCreatePreview();
-  });
-  createFolderInputEl.addEventListener('input', updateCreatePreview);
   createFilenameInputEl.addEventListener('input', updateCreatePreview);
-  createFolderNameInputEl.addEventListener('input', updateCreatePreview);
-  createFolderBtnEl.addEventListener('click', handleCreateFolder);
-  folderDeleteBtnEl.addEventListener('click', handleDeleteFolder);
+  folderPickerSearchEl.addEventListener('input', () => renderFolderPickerList(folderPickerSearchEl.value));
+  btnFolderPickerCreateEl.addEventListener('click', handleCreateFolder);
+  btnFolderPickerUseEl.addEventListener('click', () => {
+    if (folderPickerState.mode === 'create') {
+      state.createFolder = folderPickerState.selected;
+      updateCreateFolderLabel();
+      updateCreatePreview();
+      closeFolderPicker();
+      return;
+    }
+
+    moveFolderDisplayEl.textContent = folderPickerState.selected;
+    updateMovePreview();
+    closeFolderPicker();
+  });
+  btnFolderPickerCancelEl.addEventListener('click', closeFolderPicker);
 
   document.getElementById('btn-move-cancel').addEventListener('click', closeMoveModal);
   document.getElementById('btn-move-confirm').addEventListener('click', handleMoveFile);
-  moveFolderSelectEl.addEventListener('change', updateMovePreview);
-  moveFolderInputEl.addEventListener('input', updateMovePreview);
   moveFilenameInputEl.addEventListener('input', updateMovePreview);
 
   document.getElementById('btn-new-file').addEventListener('click', () => openCreateModal(state.currentFolder));
