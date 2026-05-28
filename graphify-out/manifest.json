@@ -1,0 +1,47 @@
+{
+  "D:\\money\\nael_mind\\package.json": {
+    "mtime": 1779885807.9798217,
+    "ast_hash": "85e248521d5e6aa80a754c17fff9d16c",
+    "semantic_hash": "85e248521d5e6aa80a754c17fff9d16c"
+  },
+  "D:\\money\\nael_mind\\vercel.json": {
+    "mtime": 1779894655.7472405,
+    "ast_hash": "ba6ba2675c93373c423c64f0236d0cab",
+    "semantic_hash": "ba6ba2675c93373c423c64f0236d0cab"
+  },
+  "D:\\money\\nael_mind\\api\\delete.js": {
+    "mtime": 1779885702.461525,
+    "ast_hash": "92ce98ff5bce9fd1f690c3b263ac6f90",
+    "semantic_hash": "92ce98ff5bce9fd1f690c3b263ac6f90"
+  },
+  "D:\\money\\nael_mind\\api\\file.js": {
+    "mtime": 1779903614.3472278,
+    "ast_hash": "f89bacc245f0ed9961ad97548a5d5bd8",
+    "semantic_hash": "f89bacc245f0ed9961ad97548a5d5bd8"
+  },
+  "D:\\money\\nael_mind\\api\\files.js": {
+    "mtime": 1779903600.0178185,
+    "ast_hash": "7edcffcbdccfe4f291928cc2572ab71b",
+    "semantic_hash": "7edcffcbdccfe4f291928cc2572ab71b"
+  },
+  "D:\\money\\nael_mind\\api\\list.js": {
+    "mtime": 1779885702.451299,
+    "ast_hash": "9d40b7e33246116a5b7b1a90f19cd186",
+    "semantic_hash": "9d40b7e33246116a5b7b1a90f19cd186"
+  },
+  "D:\\money\\nael_mind\\api\\read.js": {
+    "mtime": 1779885702.4540372,
+    "ast_hash": "b7d32e9e7167e9d0bbd237e2d85faba1",
+    "semantic_hash": "b7d32e9e7167e9d0bbd237e2d85faba1"
+  },
+  "D:\\money\\nael_mind\\api\\update.js": {
+    "mtime": 1779885702.455315,
+    "ast_hash": "4f64595442169bd3806beeb61043d5a2",
+    "semantic_hash": "4f64595442169bd3806beeb61043d5a2"
+  },
+  "D:\\money\\nael_mind\\gui\\app.js": {
+    "mtime": 1779903099.762813,
+    "ast_hash": "15e09625be3d04bbdc6aa6f386ccea87",
+    "semantic_hash": "15e09625be3d04bbdc6aa6f386ccea87"
+  }
+}
