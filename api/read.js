@@ -11,8 +11,12 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    const path = filename.startsWith('content/') ? filename : `content/${filename}`;
-    const data = await getRepoFile(path);
+    let path = filename.startsWith('content/') ? filename : `content/${filename}`;
+    let data = await getRepoFile(path);
+    if (!data && !path.toLowerCase().endsWith('.md')) {
+      path = path.endsWith('.md') ? path : `${path}.md`;
+      data = await getRepoFile(path);
+    }
     if (!data) {
       return res.status(404).json({ error: 'File not found' });
     }

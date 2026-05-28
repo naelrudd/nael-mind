@@ -3,6 +3,7 @@ Full-context: https://nael-mind.vercel.app/context
 Full-context-plain: https://nael-mind.vercel.app/api/context
 Raw-API: https://api.github.com/repos/naelrudd/nael-mind/git/trees/main?recursive=1
 Single-file-raw: https://raw.githubusercontent.com/naelrudd/nael-mind/main/{path}
+Single-file-rest: https://nael-mind.vercel.app/api/content/{path}
 Single-file: https://nael-mind.vercel.app/api/read?filename={path}
 Single-file-json: https://nael-mind.vercel.app/api/read?filename={path}
 File-list: https://nael-mind.vercel.app/api/list
