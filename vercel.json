@@ -3,6 +3,7 @@
     "routes": [
       { "src": "/graph", "dest": "/graphify-out/graph.html" },
       { "src": "/graphify-out/(.*)", "dest": "/graphify-out/$1" },
+      { "src": "/context", "dest": "/api/context-page" },
       { "src": "/api/(.*)", "dest": "/api/$1" },
       { "src": "/gui/(.*)", "dest": "/gui/$1" },
       { "handle": "filesystem" },

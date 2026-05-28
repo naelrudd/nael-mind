@@ -1,10 +1,11 @@
 User-agent: *
-Full-context: https://nael-mind.vercel.app/api/context
+Full-context: https://nael-mind.vercel.app/context
+Full-context-plain: https://nael-mind.vercel.app/api/context
 Single-file: https://nael-mind.vercel.app/api/context?file={path}
 Graph: https://nael-mind.vercel.app/api/graph
 File-list: https://nael-mind.vercel.app/api/files
 
 # Nael Mind - Personal Knowledge System
 # Owner: Natanael Rudy Hadinata
-# AI agents can fetch all markdown content via the /api/context endpoint.
-# Individual files available via /api/context?file=preferences.md
+# AI agents can browse /context (HTML) for full content, or
+# call /api/context (plain text) via HTTP request.
