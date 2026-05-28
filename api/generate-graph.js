@@ -211,16 +211,62 @@ async function buildGraph(tree, repo) {
   return { nodes, links, files: parsedFiles };
 }
 
-async function enrichWithGemini(graph) {
-  const key = process.env.GOOGLE_API_KEY;
-  if (!key) return graph;
+async function callAI(prompt) {
+  const genfityKey = process.env.GENFITY_API_KEY;
+  const googleKey = process.env.GOOGLE_API_KEY;
+  const model = process.env.GRAPH_MODEL || '';
 
+  if (genfityKey && (model.includes('genfity') || !googleKey)) {
+    const useModel = model || 'genfity/claude-opus-4.6:free';
+    const response = await fetch('https://ai.genfity.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${genfityKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: useModel,
+        messages: [{ role: 'user', content: prompt }],
+        temperature: 0.2,
+        max_tokens: 4096,
+      }),
+    });
+
+    if (!response.ok) return null;
+    const data = await response.json();
+    return data?.choices?.[0]?.message?.content || null;
+  }
+
+  if (googleKey) {
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${encodeURIComponent(googleKey)}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ role: 'user', parts: [{ text: prompt }] }],
+        generationConfig: {
+          temperature: 0.2,
+          responseMimeType: 'application/json',
+        },
+      }),
+    });
+
+    if (!response.ok) return null;
+    const data = await response.json();
+    return data?.candidates?.[0]?.content?.parts?.map((part) => part.text || '').join('') || null;
+  }
+
+  return null;
+}
+
+async function enrichWithAI(graph) {
   const fileNodes = graph.nodes.filter((node) => node.type === 'note');
   const files = fileNodes.slice(0, 100).map((node) => ({
     path: node.source_file,
     title: node.label,
     tags: node.tags || [],
   }));
+
+  if (!files.length) return graph;
 
   const prompt = [
     'You are clustering markdown notes from a personal knowledge base into communities.',
@@ -236,27 +282,12 @@ async function enrichWithGemini(graph) {
     JSON.stringify(files, null, 2),
   ].join('\n');
 
-  const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${encodeURIComponent(key)}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      contents: [{ role: 'user', parts: [{ text: prompt }] }],
-      generationConfig: {
-        temperature: 0.2,
-        responseMimeType: 'application/json',
-      },
-    }),
-  });
-
-  if (!response.ok) {
-    return graph;
-  }
-
-  const data = await response.json();
-  const text = data?.candidates?.[0]?.content?.parts?.map((part) => part.text || '').join('') || '';
+  const text = await callAI(prompt);
+  if (!text) return graph;
 
   try {
-    const parsed = JSON.parse(text);
+    const cleaned = text.replace(/^```json?\s*/i, '').replace(/```\s*$/i, '').trim();
+    const parsed = JSON.parse(cleaned);
     const communityMap = parsed.communities || {};
     const extraLinks = Array.isArray(parsed.links) ? parsed.links : [];
     const pathToId = new Map(graph.nodes.map((node) => [node.source_file || node.description, node.id]));
@@ -311,7 +342,7 @@ module.exports = async function handler(req, res) {
   try {
     const tree = await getRepoTree('main');
     const baseGraph = await buildGraph(tree, repo);
-    const graph = await enrichWithGemini(baseGraph);
+    const graph = await enrichWithAI(baseGraph);
     const payload = {
       directed: false,
       multigraph: false,
