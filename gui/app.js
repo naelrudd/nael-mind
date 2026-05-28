@@ -4,6 +4,7 @@ const state = {
   currentFile: null,
   allFiles: [],
   isEditing: false,
+  activeView: 'files',
   currentFolder: 'content',
   createFolder: 'content',
   uploadFolder: 'content',
@@ -16,6 +17,13 @@ const fileTagsEl = document.getElementById('file-tags');
 const viewerEl = document.getElementById('viewer');
 const editorEl = document.getElementById('editor');
 const viewerContentEl = document.getElementById('viewer-content');
+const toolbarEl = document.querySelector('.toolbar');
+const graphPaneEl = document.getElementById('graph-pane');
+const graphFrameEl = document.getElementById('graph-frame');
+const graphStatusEl = document.getElementById('graph-status');
+const btnGenerateGraphEl = document.getElementById('btn-generate-graph');
+const btnRefreshGraphEl = document.getElementById('btn-refresh-graph');
+const btnGraphToggleEl = document.getElementById('btn-graph-toggle');
 const previewContentEl = document.getElementById('preview-content');
 const editFilenameEl = document.getElementById('edit-filename');
 const editTagsEl = document.getElementById('edit-tags');
@@ -528,6 +536,50 @@ function updateToolbar() {
   document.getElementById('btn-cancel').style.display = state.isEditing ? 'inline-flex' : 'none';
 }
 
+function showFilesView() {
+  state.activeView = 'files';
+  if (graphPaneEl) graphPaneEl.style.display = 'none';
+  state.isEditing = false;
+  if (toolbarEl) toolbarEl.style.display = 'flex';
+  updateToolbar();
+
+  if (state.currentFile) {
+    return loadFile(state.currentFile);
+  }
+
+  viewerEl.style.display = 'block';
+  editorEl.style.display = 'none';
+  fileTitleEl.textContent = 'Select a file';
+  fileTagsEl.innerHTML = '';
+  viewerContentEl.innerHTML = '<p class="empty-state">Select a file from the sidebar to view</p>';
+  breadcrumbEl.innerHTML = '<span>content/</span>';
+}
+
+function reloadGraphFrame() {
+  if (!graphFrameEl) return;
+  graphFrameEl.src = `/graph?t=${Date.now()}`;
+}
+
+function showGraphView() {
+  state.activeView = 'graph';
+  state.isEditing = false;
+  viewerEl.style.display = 'none';
+  editorEl.style.display = 'none';
+  if (graphPaneEl) graphPaneEl.style.display = 'flex';
+  if (toolbarEl) toolbarEl.style.display = 'flex';
+  updateToolbar();
+  reloadGraphFrame();
+}
+
+async function apiGenerateGraph() {
+  const response = await fetch(`${API_BASE}/api/generate-graph`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  return response.json();
+}
+
 async function refreshFileTree() {
   // Hapus 'Loading...' agar tidak flicker. 
   // Kita ambil data di background, lalu ganti DOM sekaligus.
@@ -655,6 +707,9 @@ async function loadFile(path) {
   const filePath = normalizeContentPath(path);
   state.currentFile = filePath;
   state.isEditing = false;
+  state.activeView = 'files';
+  if (graphPaneEl) graphPaneEl.style.display = 'none';
+  if (toolbarEl) toolbarEl.style.display = 'flex';
   syncFolderContext(folderFromFilePath(filePath));
 
   document.querySelectorAll('.tree-item').forEach((el) => el.classList.remove('active'));
@@ -1071,6 +1126,38 @@ document.addEventListener('DOMContentLoaded', async () => {
   moveFilenameInputEl.addEventListener('input', updateMovePreview);
 
   document.getElementById('btn-new-file').addEventListener('click', () => openCreateModal(state.currentFolder));
+  btnGraphToggleEl.addEventListener('click', () => {
+    if (state.activeView === 'graph') {
+      showFilesView();
+      return;
+    }
+    showGraphView();
+  });
+  btnGenerateGraphEl.addEventListener('click', async () => {
+    graphStatusEl.textContent = 'Generating graph...';
+    btnGenerateGraphEl.disabled = true;
+    try {
+      const result = await apiGenerateGraph();
+      if (result.success) {
+        graphStatusEl.textContent = `Done: ${result.nodes} nodes · ${result.links} links · ${result.communities} communities`;
+        reloadGraphFrame();
+      } else {
+        graphStatusEl.textContent = result.message || result.error || 'Generate failed';
+      }
+    } catch (error) {
+      graphStatusEl.textContent = 'Generate failed';
+    } finally {
+      btnGenerateGraphEl.disabled = false;
+    }
+  });
+  btnRefreshGraphEl.addEventListener('click', () => {
+    graphStatusEl.textContent = 'Refreshing view...';
+    reloadGraphFrame();
+    setTimeout(() => {
+      graphStatusEl.textContent = 'Ready.';
+    }, 600);
+  });
+  document.getElementById('btn-hide-graph').addEventListener('click', showFilesView);
   
   document.getElementById('sidebar-search').addEventListener('input', (e) => {
     searchFiles(e.target.value);
@@ -1147,14 +1234,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       const view = btn.dataset.view;
       if (view === 'files') {
-        await refreshFileTree();
+        await showFilesView();
       } else if (view === 'search') {
         const query = prompt('Search filename or path');
         if (query !== null) searchFiles(query);
       } else if (view === 'tags') {
         const tag = prompt('Filter by tag');
         if (tag !== null) filterByTag(tag);
+      } else if (view === 'graph') {
+        showGraphView();
       }
     });
   });
+
+  showFilesView();
 });

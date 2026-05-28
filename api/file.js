@@ -4,7 +4,7 @@ module.exports = async function handler(req, res) {
   const { path } = req.query;
   if (!path) return res.status(400).json({ error: 'Path parameter is required' });
 
-  const repo = 'naelrudd/nael-mind';
+  const repo = process.env.GITHUB_REPO || 'naelrudd/nael-mind';
   const token = process.env.GITHUB_PAT;
   
   // Ensure path starts with content/

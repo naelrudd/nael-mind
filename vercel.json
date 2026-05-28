@@ -1,6 +1,8 @@
 {
   "version": 2,
   "routes": [
+    { "src": "/graph", "dest": "/graphify-out/graph.html" },
+    { "src": "/graphify-out/(.*)", "dest": "/graphify-out/$1" },
     { "src": "/api/(.*)", "dest": "/api/$1" },
     { "src": "/gui/(.*)", "dest": "/gui/$1" },
     { "src": "/(.*)", "dest": "/gui/index.html" }

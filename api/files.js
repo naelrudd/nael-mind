@@ -1,7 +1,7 @@
 module.exports = async function handler(req, res) {
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
 
-  const repo = 'naelrudd/nael-mind';
+  const repo = process.env.GITHUB_REPO || 'naelrudd/nael-mind';
   const token = process.env.GITHUB_PAT;
   const apiUrl = `https://api.github.com/repos/${repo}/git/trees/main?recursive=1`;
 

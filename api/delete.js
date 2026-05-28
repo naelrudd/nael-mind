@@ -25,7 +25,7 @@ module.exports = async function handler(req, res) {
   };
 
   const filePath = normalizeContentPath(filename);
-  const repo = 'naelrudd/nael-mind';
+  const repo = process.env.GITHUB_REPO || 'naelrudd/nael-mind';
   const token = process.env.GITHUB_PAT;
   const apiUrl = `https://api.github.com/repos/${repo}/contents/${filePath}`;
 

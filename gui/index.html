@@ -53,6 +53,7 @@
           <span>content/</span>
         </div>
         <div class="toolbar-actions">
+          <button class="btn btn-tool" id="btn-graph-toggle" title="Toggle graph">Graph</button>
           <button class="btn btn-icon" id="btn-edit" title="Edit">✏️</button>
           <button class="btn btn-icon" id="btn-delete" title="Delete">🗑️</button>
           <button class="btn btn-icon" id="btn-save" title="Save" style="display:none;">💾</button>
@@ -60,8 +61,9 @@
         </div>
       </div>
 
-      <!-- Editor / Viewer -->
-      <div class="editor-container">
+      <div class="workspace">
+        <!-- Editor / Viewer -->
+        <div class="editor-container">
         <!-- View Mode -->
         <div class="viewer" id="viewer">
           <div class="viewer-header">
@@ -88,6 +90,27 @@
             <textarea id="edit-content" placeholder="Write markdown here..." class="edit-textarea"></textarea>
             <div class="preview-pane" id="preview-pane">
               <div class="preview-content" id="preview-content"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+        <div class="graph-pane" id="graph-pane" style="display:none;">
+          <div class="graph-shell">
+            <div class="graph-panel">
+              <div class="graph-panel-header">
+                <div>
+                  <h2>Graph View</h2>
+                  <p>Graph is built from `content/*.md` only.</p>
+                </div>
+                <div class="graph-actions">
+                  <button class="btn btn-primary" id="btn-generate-graph" type="button">Generate Graph</button>
+                  <button class="btn btn-secondary" id="btn-refresh-graph" type="button">Refresh</button>
+                  <button class="btn btn-secondary" id="btn-hide-graph" type="button">Hide</button>
+                </div>
+              </div>
+              <div class="graph-status" id="graph-status">Ready.</div>
+              <iframe class="graph-frame" id="graph-frame" src="/graph" title="Nael Mind Graph"></iframe>
             </div>
           </div>
         </div>
