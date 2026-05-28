@@ -562,9 +562,6 @@ function reloadGraphFrame() {
 
 function showGraphView() {
   state.activeView = 'graph';
-  state.isEditing = false;
-  viewerEl.style.display = 'none';
-  editorEl.style.display = 'none';
   if (graphPaneEl) graphPaneEl.style.display = 'flex';
   if (toolbarEl) toolbarEl.style.display = 'flex';
   updateToolbar();
@@ -707,8 +704,6 @@ async function loadFile(path) {
   const filePath = normalizeContentPath(path);
   state.currentFile = filePath;
   state.isEditing = false;
-  state.activeView = 'files';
-  if (graphPaneEl) graphPaneEl.style.display = 'none';
   if (toolbarEl) toolbarEl.style.display = 'flex';
   syncFolderContext(folderFromFilePath(filePath));
 
@@ -1127,11 +1122,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   document.getElementById('btn-new-file').addEventListener('click', () => openCreateModal(state.currentFolder));
   btnGraphToggleEl.addEventListener('click', () => {
-    if (state.activeView === 'graph') {
-      showFilesView();
-      return;
+    if (graphPaneEl.style.display === 'none' || !graphPaneEl.style.display) {
+      graphPaneEl.style.display = 'flex';
+      state.activeView = 'graph';
+      reloadGraphFrame();
+    } else {
+      graphPaneEl.style.display = 'none';
+      state.activeView = 'files';
     }
-    showGraphView();
   });
   btnGenerateGraphEl.addEventListener('click', async () => {
     graphStatusEl.textContent = 'Generating graph...';
@@ -1157,7 +1155,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       graphStatusEl.textContent = 'Ready.';
     }, 600);
   });
-  document.getElementById('btn-hide-graph').addEventListener('click', showFilesView);
+  document.getElementById('btn-hide-graph').addEventListener('click', () => {
+    graphPaneEl.style.display = 'none';
+    state.activeView = 'files';
+  });
   
   document.getElementById('sidebar-search').addEventListener('input', (e) => {
     searchFiles(e.target.value);

@@ -96,22 +96,20 @@
       </div>
 
         <div class="graph-pane" id="graph-pane" style="display:none;">
-          <div class="graph-shell">
-            <div class="graph-panel">
-              <div class="graph-panel-header">
-                <div>
-                  <h2>Graph View</h2>
-                  <p>Graph is built from `content/*.md` only.</p>
-                </div>
-                <div class="graph-actions">
-                  <button class="btn btn-primary" id="btn-generate-graph" type="button">Generate Graph</button>
-                  <button class="btn btn-secondary" id="btn-refresh-graph" type="button">Refresh</button>
-                  <button class="btn btn-secondary" id="btn-hide-graph" type="button">Hide</button>
-                </div>
+          <div class="graph-panel">
+            <div class="graph-panel-header">
+              <div>
+                <h2>Graph View</h2>
+                <p>Graph is built from content/*.md only.</p>
               </div>
-              <div class="graph-status" id="graph-status">Ready.</div>
-              <iframe class="graph-frame" id="graph-frame" src="/graph?embed=1" title="Nael Mind Graph"></iframe>
+              <div class="graph-actions">
+                <button class="btn btn-primary" id="btn-generate-graph" type="button">Generate Graph</button>
+                <button class="btn btn-secondary" id="btn-refresh-graph" type="button">Refresh</button>
+                <button class="btn btn-secondary" id="btn-hide-graph" type="button">Hide</button>
+              </div>
             </div>
+            <div class="graph-status" id="graph-status">Ready.</div>
+            <iframe class="graph-frame" id="graph-frame" src="/graph?embed=1" title="Nael Mind Graph"></iframe>
           </div>
         </div>
       </div>
