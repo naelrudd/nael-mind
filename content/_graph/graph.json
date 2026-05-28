@@ -1,0 +1,226 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "id": "content-root",
+      "label": "content",
+      "file_type": "root",
+      "type": "root",
+      "community": 0,
+      "importance": 10,
+      "description": "Content root"
+    },
+    {
+      "id": "note:content_identity_md",
+      "label": "Identity",
+      "file_type": "note",
+      "type": "note",
+      "source_file": "content/Identity.md",
+      "description": "content/Identity.md",
+      "tags": [],
+      "community": 0,
+      "importance": 5
+    },
+    {
+      "id": "note:content_readme_md",
+      "label": "README",
+      "file_type": "note",
+      "type": "note",
+      "source_file": "content/README.md",
+      "description": "content/README.md",
+      "tags": [],
+      "community": 0,
+      "importance": 5
+    },
+    {
+      "id": "note:content_current_focus_md",
+      "label": "current-focus",
+      "file_type": "note",
+      "type": "note",
+      "source_file": "content/current-focus.md",
+      "description": "content/current-focus.md",
+      "tags": [],
+      "community": 0,
+      "importance": 5
+    },
+    {
+      "id": "note:content_goals_md",
+      "label": "goals",
+      "file_type": "note",
+      "type": "note",
+      "source_file": "content/goals.md",
+      "description": "content/goals.md",
+      "tags": [],
+      "community": 0,
+      "importance": 5
+    },
+    {
+      "id": "note:content_master_context_md",
+      "label": "master-context",
+      "file_type": "note",
+      "type": "note",
+      "source_file": "content/master-context.md",
+      "description": "content/master-context.md",
+      "tags": [],
+      "community": 0,
+      "importance": 5
+    },
+    {
+      "id": "note:content_memories_2026_05_27_nael_mind_origin_md",
+      "label": "2026-05-27_nael-mind-origin",
+      "file_type": "note",
+      "type": "note",
+      "source_file": "content/memories/2026-05-27_nael-mind-origin.md",
+      "description": "content/memories/2026-05-27_nael-mind-origin.md",
+      "tags": [],
+      "community": 0,
+      "importance": 5
+    },
+    {
+      "id": "note:content_memories_2026_05_27_test_api_md",
+      "label": "2026-05-27_test-api",
+      "file_type": "note",
+      "type": "note",
+      "source_file": "content/memories/2026-05-27_test-api.md",
+      "description": "content/memories/2026-05-27_test-api.md",
+      "tags": [],
+      "community": 0,
+      "importance": 5
+    },
+    {
+      "id": "note:content_memories_template_md",
+      "label": "_Template",
+      "file_type": "note",
+      "type": "note",
+      "source_file": "content/memories/_Template.md",
+      "description": "content/memories/_Template.md",
+      "tags": [],
+      "community": 0,
+      "importance": 5
+    },
+    {
+      "id": "note:content_preferences_md",
+      "label": "preferences",
+      "file_type": "note",
+      "type": "note",
+      "source_file": "content/preferences.md",
+      "description": "content/preferences.md",
+      "tags": [],
+      "community": 0,
+      "importance": 5
+    },
+    {
+      "id": "note:content_projects_script_mc_diklat_nafas_md",
+      "label": "Script-MC-Diklat-NAFAS",
+      "file_type": "note",
+      "type": "note",
+      "source_file": "content/projects/Script-MC-Diklat-NAFAS.md",
+      "description": "content/projects/Script-MC-Diklat-NAFAS.md",
+      "tags": [],
+      "community": 0,
+      "importance": 5
+    },
+    {
+      "id": "note:content_projects_kanvashub_md",
+      "label": "kanvashub",
+      "file_type": "note",
+      "type": "note",
+      "source_file": "content/projects/kanvashub.md",
+      "description": "content/projects/kanvashub.md",
+      "tags": [],
+      "community": 0,
+      "importance": 5
+    },
+    {
+      "id": "note:content_projects_nael_mind_md",
+      "label": "nael-mind",
+      "file_type": "note",
+      "type": "note",
+      "source_file": "content/projects/nael-mind.md",
+      "description": "content/projects/nael-mind.md",
+      "tags": [],
+      "community": 0,
+      "importance": 5
+    },
+    {
+      "id": "note:content_projects_tes_md",
+      "label": "tes",
+      "file_type": "note",
+      "type": "note",
+      "source_file": "content/projects/tes.md",
+      "description": "content/projects/tes.md",
+      "tags": [],
+      "community": 0,
+      "importance": 5
+    }
+  ],
+  "links": [
+    {
+      "source": "content-root",
+      "target": "note:content_identity_md",
+      "type": "contains"
+    },
+    {
+      "source": "content-root",
+      "target": "note:content_readme_md",
+      "type": "contains"
+    },
+    {
+      "source": "content-root",
+      "target": "note:content_current_focus_md",
+      "type": "contains"
+    },
+    {
+      "source": "content-root",
+      "target": "note:content_goals_md",
+      "type": "contains"
+    },
+    {
+      "source": "content-root",
+      "target": "note:content_master_context_md",
+      "type": "contains"
+    },
+    {
+      "source": "content-root",
+      "target": "note:content_memories_2026_05_27_nael_mind_origin_md",
+      "type": "contains"
+    },
+    {
+      "source": "content-root",
+      "target": "note:content_memories_2026_05_27_test_api_md",
+      "type": "contains"
+    },
+    {
+      "source": "content-root",
+      "target": "note:content_memories_template_md",
+      "type": "contains"
+    },
+    {
+      "source": "content-root",
+      "target": "note:content_preferences_md",
+      "type": "contains"
+    },
+    {
+      "source": "content-root",
+      "target": "note:content_projects_script_mc_diklat_nafas_md",
+      "type": "contains"
+    },
+    {
+      "source": "content-root",
+      "target": "note:content_projects_kanvashub_md",
+      "type": "contains"
+    },
+    {
+      "source": "content-root",
+      "target": "note:content_projects_nael_mind_md",
+      "type": "contains"
+    },
+    {
+      "source": "content-root",
+      "target": "note:content_projects_tes_md",
+      "type": "contains"
+    }
+  ]
+}
