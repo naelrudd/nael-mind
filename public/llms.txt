@@ -1,12 +1,13 @@
 User-agent: *
 Full-context: https://nael-mind.vercel.app/context
 Full-context-plain: https://nael-mind.vercel.app/api/context
-Single-file: https://nael-mind.vercel.app/api/context?file={path}
+Single-file: https://nael-mind.vercel.app/api/read?filename={path}
+Single-file-json: https://nael-mind.vercel.app/api/read?filename={path}
+File-list: https://nael-mind.vercel.app/api/list
 Graph: https://nael-mind.vercel.app/api/graph
-File-list: https://nael-mind.vercel.app/api/files
 
 # Nael Mind - Personal Knowledge System
 # Owner: Natanael Rudy Hadinata
 # This is a personal knowledge base stored as markdown files.
 # AI agents can browse /context (HTML) for full content, or
-# call /api/context (plain text) via HTTP request.
+# use the JSON API at /api/list and /api/read.

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nael-mind.vercel.app/llms.txt
