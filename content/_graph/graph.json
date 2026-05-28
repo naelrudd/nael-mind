@@ -24,6 +24,61 @@
       "importance": 5
     },
     {
+      "id": "section:content_identity_md:nael_mind_core_identity",
+      "label": "Nael Mind - Core Identity",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/Identity.md",
+      "description": "content/Identity.md # Nael Mind - Core Identity",
+      "community": 0,
+      "importance": 3.5,
+      "level": 1
+    },
+    {
+      "id": "section:content_identity_md:vision_direction",
+      "label": "Vision & Direction",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/Identity.md",
+      "description": "content/Identity.md # Vision & Direction",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_identity_md:main_interests_2026",
+      "label": "Main Interests (2026)",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/Identity.md",
+      "description": "content/Identity.md # Main Interests (2026)",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_identity_md:music_identity",
+      "label": "Music Identity",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/Identity.md",
+      "description": "content/Identity.md # Music Identity",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_identity_md:personality_working_style",
+      "label": "Personality & Working Style",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/Identity.md",
+      "description": "content/Identity.md # Personality & Working Style",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
       "id": "note:content_readme_md",
       "label": "README",
       "file_type": "note",
@@ -33,6 +88,61 @@
       "tags": [],
       "community": 0,
       "importance": 5
+    },
+    {
+      "id": "section:content_readme_md:nael_mind",
+      "label": "Nael Mind 🧠",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/README.md",
+      "description": "content/README.md # Nael Mind 🧠",
+      "community": 0,
+      "importance": 3.5,
+      "level": 1
+    },
+    {
+      "id": "section:content_readme_md:purpose",
+      "label": "Purpose",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/README.md",
+      "description": "content/README.md # Purpose",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_readme_md:structure",
+      "label": "Structure",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/README.md",
+      "description": "content/README.md # Structure",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_readme_md:how_to_use_for_ai",
+      "label": "How to Use (for AI)",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/README.md",
+      "description": "content/README.md # How to Use (for AI)",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_readme_md:update_flow",
+      "label": "Update Flow",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/README.md",
+      "description": "content/README.md # Update Flow",
+      "community": 0,
+      "importance": 3,
+      "level": 2
     },
     {
       "id": "note:content_current_focus_md",
@@ -46,6 +156,50 @@
       "importance": 5
     },
     {
+      "id": "section:content_current_focus_md:current_focus_27_mei_2026",
+      "label": "Current Focus (27 Mei 2026)",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/current-focus.md",
+      "description": "content/current-focus.md # Current Focus (27 Mei 2026)",
+      "community": 0,
+      "importance": 3.5,
+      "level": 1
+    },
+    {
+      "id": "section:content_current_focus_md:high_priority_utama",
+      "label": "High Priority (Utama)",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/current-focus.md",
+      "description": "content/current-focus.md # High Priority (Utama)",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_current_focus_md:medium_priority",
+      "label": "Medium Priority",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/current-focus.md",
+      "description": "content/current-focus.md # Medium Priority",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_current_focus_md:low_priority_maintenance",
+      "label": "Low Priority (Maintenance)",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/current-focus.md",
+      "description": "content/current-focus.md # Low Priority (Maintenance)",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
       "id": "note:content_goals_md",
       "label": "goals",
       "file_type": "note",
@@ -55,6 +209,61 @@
       "tags": [],
       "community": 0,
       "importance": 5
+    },
+    {
+      "id": "section:content_goals_md:nael_goals_direction",
+      "label": "Nael - Goals & Direction",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/goals.md",
+      "description": "content/goals.md # Nael - Goals & Direction",
+      "community": 0,
+      "importance": 3.5,
+      "level": 1
+    },
+    {
+      "id": "section:content_goals_md:short_term_now",
+      "label": "Short Term (Now)",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/goals.md",
+      "description": "content/goals.md # Short Term (Now)",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_goals_md:current_priorities",
+      "label": "Current Priorities",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/goals.md",
+      "description": "content/goals.md # Current Priorities",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_goals_md:medium_term",
+      "label": "Medium Term",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/goals.md",
+      "description": "content/goals.md # Medium Term",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_goals_md:long_term_vision",
+      "label": "Long Term Vision",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/goals.md",
+      "description": "content/goals.md # Long Term Vision",
+      "community": 0,
+      "importance": 3,
+      "level": 2
     },
     {
       "id": "note:content_master_context_md",
@@ -68,6 +277,17 @@
       "importance": 5
     },
     {
+      "id": "section:content_master_context_md:nael_mind_master_context",
+      "label": "Nael Mind - Master Context",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/master-context.md",
+      "description": "content/master-context.md # Nael Mind - Master Context",
+      "community": 0,
+      "importance": 3.5,
+      "level": 1
+    },
+    {
       "id": "note:content_memories_2026_05_27_nael_mind_origin_md",
       "label": "2026-05-27_nael-mind-origin",
       "file_type": "note",
@@ -77,6 +297,72 @@
       "tags": [],
       "community": 0,
       "importance": 5
+    },
+    {
+      "id": "section:content_memories_2026_05_27_nael_mind_origin_md:memory_nael_mind_origin_first_setup",
+      "label": "Memory: Nael Mind — Origin & First Setup",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/memories/2026-05-27_nael-mind-origin.md",
+      "description": "content/memories/2026-05-27_nael-mind-origin.md # Memory: Nael Mind — Origin & First Setup",
+      "community": 0,
+      "importance": 3.5,
+      "level": 1
+    },
+    {
+      "id": "section:content_memories_2026_05_27_nael_mind_origin_md:summary",
+      "label": "Summary",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/memories/2026-05-27_nael-mind-origin.md",
+      "description": "content/memories/2026-05-27_nael-mind-origin.md # Summary",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_memories_2026_05_27_nael_mind_origin_md:what_happened",
+      "label": "What Happened",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/memories/2026-05-27_nael-mind-origin.md",
+      "description": "content/memories/2026-05-27_nael-mind-origin.md # What Happened",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_memories_2026_05_27_nael_mind_origin_md:key_decisions",
+      "label": "Key Decisions",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/memories/2026-05-27_nael-mind-origin.md",
+      "description": "content/memories/2026-05-27_nael-mind-origin.md # Key Decisions",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_memories_2026_05_27_nael_mind_origin_md:lessons_learned",
+      "label": "Lessons Learned",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/memories/2026-05-27_nael-mind-origin.md",
+      "description": "content/memories/2026-05-27_nael-mind-origin.md # Lessons Learned",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_memories_2026_05_27_nael_mind_origin_md:status",
+      "label": "Status",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/memories/2026-05-27_nael-mind-origin.md",
+      "description": "content/memories/2026-05-27_nael-mind-origin.md # Status",
+      "community": 0,
+      "importance": 3,
+      "level": 2
     },
     {
       "id": "note:content_memories_2026_05_27_test_api_md",
@@ -90,6 +376,17 @@
       "importance": 5
     },
     {
+      "id": "section:content_memories_2026_05_27_test_api_md:test_api_write",
+      "label": "Test API Write",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/memories/2026-05-27_test-api.md",
+      "description": "content/memories/2026-05-27_test-api.md # Test API Write",
+      "community": 0,
+      "importance": 3.5,
+      "level": 1
+    },
+    {
       "id": "note:content_memories_template_md",
       "label": "_Template",
       "file_type": "note",
@@ -99,6 +396,94 @@
       "tags": [],
       "community": 0,
       "importance": 5
+    },
+    {
+      "id": "section:content_memories_template_md:memory_title",
+      "label": "Memory: [Title]",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/memories/_Template.md",
+      "description": "content/memories/_Template.md # Memory: [Title]",
+      "community": 0,
+      "importance": 3.5,
+      "level": 1
+    },
+    {
+      "id": "section:content_memories_template_md:summary",
+      "label": "Summary",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/memories/_Template.md",
+      "description": "content/memories/_Template.md # Summary",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_memories_template_md:context",
+      "label": "Context",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/memories/_Template.md",
+      "description": "content/memories/_Template.md # Context",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_memories_template_md:what_happened_what_was_discussed",
+      "label": "What Happened / What Was Discussed",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/memories/_Template.md",
+      "description": "content/memories/_Template.md # What Happened / What Was Discussed",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_memories_template_md:decisions_made",
+      "label": "Decisions Made",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/memories/_Template.md",
+      "description": "content/memories/_Template.md # Decisions Made",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_memories_template_md:insights_lessons_learned",
+      "label": "Insights / Lessons Learned",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/memories/_Template.md",
+      "description": "content/memories/_Template.md # Insights / Lessons Learned",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_memories_template_md:action_items",
+      "label": "Action Items",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/memories/_Template.md",
+      "description": "content/memories/_Template.md # Action Items",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_memories_template_md:status",
+      "label": "Status",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/memories/_Template.md",
+      "description": "content/memories/_Template.md # Status",
+      "community": 0,
+      "importance": 3,
+      "level": 2
     },
     {
       "id": "note:content_preferences_md",
@@ -112,6 +497,83 @@
       "importance": 5
     },
     {
+      "id": "section:content_preferences_md:nael_ai_interaction_preferences",
+      "label": "Nael - AI Interaction Preferences",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/preferences.md",
+      "description": "content/preferences.md # Nael - AI Interaction Preferences",
+      "community": 0,
+      "importance": 3.5,
+      "level": 1
+    },
+    {
+      "id": "section:content_preferences_md:explanation_style",
+      "label": "Explanation Style",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/preferences.md",
+      "description": "content/preferences.md # Explanation Style",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_preferences_md:learning_preference",
+      "label": "Learning Preference",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/preferences.md",
+      "description": "content/preferences.md # Learning Preference",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_preferences_md:coding_rules",
+      "label": "Coding Rules",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/preferences.md",
+      "description": "content/preferences.md # Coding Rules",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_preferences_md:decision_making",
+      "label": "Decision Making",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/preferences.md",
+      "description": "content/preferences.md # Decision Making",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_preferences_md:tone_attitude",
+      "label": "Tone & Attitude",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/preferences.md",
+      "description": "content/preferences.md # Tone & Attitude",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_preferences_md:what_to_avoid",
+      "label": "What to Avoid",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/preferences.md",
+      "description": "content/preferences.md # What to Avoid",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
       "id": "note:content_projects_script_mc_diklat_nafas_md",
       "label": "Script-MC-Diklat-NAFAS",
       "file_type": "note",
@@ -121,6 +583,171 @@
       "tags": [],
       "community": 0,
       "importance": 5
+    },
+    {
+      "id": "section:content_projects_script_mc_diklat_nafas_md:script_mc_diklat_ruang_sanggar_seni_nafas_ft_um",
+      "label": "SCRIPT MC - DIKLAT RUANG SANGGAR SENI NA...",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/projects/Script-MC-Diklat-NAFAS.md",
+      "description": "content/projects/Script-MC-Diklat-NAFAS.md # SCRIPT MC - DIKLAT RUANG SANGGAR SENI NAFAS FT UM",
+      "community": 0,
+      "importance": 3.5,
+      "level": 1
+    },
+    {
+      "id": "section:content_projects_script_mc_diklat_nafas_md:pembukaan",
+      "label": "PEMBUKAAN",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/projects/Script-MC-Diklat-NAFAS.md",
+      "description": "content/projects/Script-MC-Diklat-NAFAS.md # PEMBUKAAN",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_projects_script_mc_diklat_nafas_md:susunan_acara",
+      "label": "SUSUNAN ACARA",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/projects/Script-MC-Diklat-NAFAS.md",
+      "description": "content/projects/Script-MC-Diklat-NAFAS.md # SUSUNAN ACARA",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_projects_script_mc_diklat_nafas_md:pembukaan_acara",
+      "label": "PEMBUKAAN ACARA",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/projects/Script-MC-Diklat-NAFAS.md",
+      "description": "content/projects/Script-MC-Diklat-NAFAS.md # PEMBUKAAN ACARA",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_projects_script_mc_diklat_nafas_md:sambutan_sambutan",
+      "label": "SAMBUTAN-SAMBUTAN",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/projects/Script-MC-Diklat-NAFAS.md",
+      "description": "content/projects/Script-MC-Diklat-NAFAS.md # SAMBUTAN-SAMBUTAN",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_projects_script_mc_diklat_nafas_md:penampilan_materi_divisi_tari_dance",
+      "label": "PENAMPILAN & MATERI - DIVISI TARI & DANC...",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/projects/Script-MC-Diklat-NAFAS.md",
+      "description": "content/projects/Script-MC-Diklat-NAFAS.md # PENAMPILAN & MATERI - DIVISI TARI & DANCE",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_projects_script_mc_diklat_nafas_md:penampilan_materi_divisi_media_informasi",
+      "label": "PENAMPILAN & MATERI - DIVISI MEDIA INFOR...",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/projects/Script-MC-Diklat-NAFAS.md",
+      "description": "content/projects/Script-MC-Diklat-NAFAS.md # PENAMPILAN & MATERI - DIVISI MEDIA INFORMASI",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_projects_script_mc_diklat_nafas_md:penampilan_materi_divisi_lukis",
+      "label": "PENAMPILAN & MATERI - DIVISI LUKIS",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/projects/Script-MC-Diklat-NAFAS.md",
+      "description": "content/projects/Script-MC-Diklat-NAFAS.md # PENAMPILAN & MATERI - DIVISI LUKIS",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_projects_script_mc_diklat_nafas_md:penampilan_materi_divisi_musik",
+      "label": "PENAMPILAN & MATERI - DIVISI MUSIK",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/projects/Script-MC-Diklat-NAFAS.md",
+      "description": "content/projects/Script-MC-Diklat-NAFAS.md # PENAMPILAN & MATERI - DIVISI MUSIK",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_projects_script_mc_diklat_nafas_md:break_ice_breaking",
+      "label": "BREAK & ICE BREAKING",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/projects/Script-MC-Diklat-NAFAS.md",
+      "description": "content/projects/Script-MC-Diklat-NAFAS.md # BREAK & ICE BREAKING",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_projects_script_mc_diklat_nafas_md:materi_kenafasan",
+      "label": "MATERI KENAFASAN",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/projects/Script-MC-Diklat-NAFAS.md",
+      "description": "content/projects/Script-MC-Diklat-NAFAS.md # MATERI KENAFASAN",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_projects_script_mc_diklat_nafas_md:penampilan_musik_kolaborasi",
+      "label": "PENAMPILAN MUSIK KOLABORASI",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/projects/Script-MC-Diklat-NAFAS.md",
+      "description": "content/projects/Script-MC-Diklat-NAFAS.md # PENAMPILAN MUSIK KOLABORASI",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_projects_script_mc_diklat_nafas_md:informasi_makrab",
+      "label": "INFORMASI MAKRAB",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/projects/Script-MC-Diklat-NAFAS.md",
+      "description": "content/projects/Script-MC-Diklat-NAFAS.md # INFORMASI MAKRAB",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_projects_script_mc_diklat_nafas_md:penutupan",
+      "label": "PENUTUPAN",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/projects/Script-MC-Diklat-NAFAS.md",
+      "description": "content/projects/Script-MC-Diklat-NAFAS.md # PENUTUPAN",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_projects_script_mc_diklat_nafas_md:catatan_penting_untuk_mc",
+      "label": "CATATAN PENTING UNTUK MC:",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/projects/Script-MC-Diklat-NAFAS.md",
+      "description": "content/projects/Script-MC-Diklat-NAFAS.md # CATATAN PENTING UNTUK MC:",
+      "community": 0,
+      "importance": 3,
+      "level": 2
     },
     {
       "id": "note:content_projects_kanvashub_md",
@@ -134,6 +761,72 @@
       "importance": 5
     },
     {
+      "id": "section:content_projects_kanvashub_md:project_kanvashub",
+      "label": "Project: KanvasHub",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/projects/kanvashub.md",
+      "description": "content/projects/kanvashub.md # Project: KanvasHub",
+      "community": 0,
+      "importance": 3.5,
+      "level": 1
+    },
+    {
+      "id": "section:content_projects_kanvashub_md:overview",
+      "label": "Overview",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/projects/kanvashub.md",
+      "description": "content/projects/kanvashub.md # Overview",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_projects_kanvashub_md:goal",
+      "label": "Goal",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/projects/kanvashub.md",
+      "description": "content/projects/kanvashub.md # Goal",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_projects_kanvashub_md:tech_stack",
+      "label": "Tech Stack",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/projects/kanvashub.md",
+      "description": "content/projects/kanvashub.md # Tech Stack",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_projects_kanvashub_md:current_state",
+      "label": "Current State",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/projects/kanvashub.md",
+      "description": "content/projects/kanvashub.md # Current State",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_projects_kanvashub_md:notes",
+      "label": "Notes",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/projects/kanvashub.md",
+      "description": "content/projects/kanvashub.md # Notes",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
       "id": "note:content_projects_nael_mind_md",
       "label": "nael-mind",
       "file_type": "note",
@@ -145,6 +838,116 @@
       "importance": 5
     },
     {
+      "id": "section:content_projects_nael_mind_md:project_nael_mind",
+      "label": "Project: Nael Mind",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/projects/nael-mind.md",
+      "description": "content/projects/nael-mind.md # Project: Nael Mind",
+      "community": 0,
+      "importance": 3.5,
+      "level": 1
+    },
+    {
+      "id": "section:content_projects_nael_mind_md:overview",
+      "label": "Overview",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/projects/nael-mind.md",
+      "description": "content/projects/nael-mind.md # Overview",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_projects_nael_mind_md:problem_solved",
+      "label": "Problem Solved",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/projects/nael-mind.md",
+      "description": "content/projects/nael-mind.md # Problem Solved",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_projects_nael_mind_md:core_goal",
+      "label": "Core Goal",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/projects/nael-mind.md",
+      "description": "content/projects/nael-mind.md # Core Goal",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_projects_nael_mind_md:future",
+      "label": "Future",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/projects/nael-mind.md",
+      "description": "content/projects/nael-mind.md # Future",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_projects_nael_mind_md:architecture_current",
+      "label": "Architecture (current)",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/projects/nael-mind.md",
+      "description": "content/projects/nael-mind.md # Architecture (current)",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_projects_nael_mind_md:file_structure",
+      "label": "File Structure",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/projects/nael-mind.md",
+      "description": "content/projects/nael-mind.md # File Structure",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_projects_nael_mind_md:update_flow",
+      "label": "Update Flow",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/projects/nael-mind.md",
+      "description": "content/projects/nael-mind.md # Update Flow",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_projects_nael_mind_md:future_ideas",
+      "label": "Future Ideas",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/projects/nael-mind.md",
+      "description": "content/projects/nael-mind.md # Future Ideas",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
+      "id": "section:content_projects_nael_mind_md:stack",
+      "label": "Stack",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/projects/nael-mind.md",
+      "description": "content/projects/nael-mind.md # Stack",
+      "community": 0,
+      "importance": 3,
+      "level": 2
+    },
+    {
       "id": "note:content_projects_tes_md",
       "label": "tes",
       "file_type": "note",
@@ -154,6 +957,17 @@
       "tags": [],
       "community": 0,
       "importance": 5
+    },
+    {
+      "id": "section:content_projects_tes_md:new_note",
+      "label": "New Note",
+      "file_type": "section",
+      "type": "section",
+      "source_file": "content/projects/tes.md",
+      "description": "content/projects/tes.md # New Note",
+      "community": 0,
+      "importance": 3.5,
+      "level": 1
     }
   ],
   "links": [
@@ -163,8 +977,58 @@
       "type": "contains"
     },
     {
+      "source": "note:content_identity_md",
+      "target": "section:content_identity_md:nael_mind_core_identity",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_identity_md",
+      "target": "section:content_identity_md:vision_direction",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_identity_md",
+      "target": "section:content_identity_md:main_interests_2026",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_identity_md",
+      "target": "section:content_identity_md:music_identity",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_identity_md",
+      "target": "section:content_identity_md:personality_working_style",
+      "type": "contains"
+    },
+    {
       "source": "content-root",
       "target": "note:content_readme_md",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_readme_md",
+      "target": "section:content_readme_md:nael_mind",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_readme_md",
+      "target": "section:content_readme_md:purpose",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_readme_md",
+      "target": "section:content_readme_md:structure",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_readme_md",
+      "target": "section:content_readme_md:how_to_use_for_ai",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_readme_md",
+      "target": "section:content_readme_md:update_flow",
       "type": "contains"
     },
     {
@@ -173,8 +1037,53 @@
       "type": "contains"
     },
     {
+      "source": "note:content_current_focus_md",
+      "target": "section:content_current_focus_md:current_focus_27_mei_2026",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_current_focus_md",
+      "target": "section:content_current_focus_md:high_priority_utama",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_current_focus_md",
+      "target": "section:content_current_focus_md:medium_priority",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_current_focus_md",
+      "target": "section:content_current_focus_md:low_priority_maintenance",
+      "type": "contains"
+    },
+    {
       "source": "content-root",
       "target": "note:content_goals_md",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_goals_md",
+      "target": "section:content_goals_md:nael_goals_direction",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_goals_md",
+      "target": "section:content_goals_md:short_term_now",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_goals_md",
+      "target": "section:content_goals_md:current_priorities",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_goals_md",
+      "target": "section:content_goals_md:medium_term",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_goals_md",
+      "target": "section:content_goals_md:long_term_vision",
       "type": "contains"
     },
     {
@@ -183,8 +1092,43 @@
       "type": "contains"
     },
     {
+      "source": "note:content_master_context_md",
+      "target": "section:content_master_context_md:nael_mind_master_context",
+      "type": "contains"
+    },
+    {
       "source": "content-root",
       "target": "note:content_memories_2026_05_27_nael_mind_origin_md",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_memories_2026_05_27_nael_mind_origin_md",
+      "target": "section:content_memories_2026_05_27_nael_mind_origin_md:memory_nael_mind_origin_first_setup",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_memories_2026_05_27_nael_mind_origin_md",
+      "target": "section:content_memories_2026_05_27_nael_mind_origin_md:summary",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_memories_2026_05_27_nael_mind_origin_md",
+      "target": "section:content_memories_2026_05_27_nael_mind_origin_md:what_happened",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_memories_2026_05_27_nael_mind_origin_md",
+      "target": "section:content_memories_2026_05_27_nael_mind_origin_md:key_decisions",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_memories_2026_05_27_nael_mind_origin_md",
+      "target": "section:content_memories_2026_05_27_nael_mind_origin_md:lessons_learned",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_memories_2026_05_27_nael_mind_origin_md",
+      "target": "section:content_memories_2026_05_27_nael_mind_origin_md:status",
       "type": "contains"
     },
     {
@@ -193,8 +1137,53 @@
       "type": "contains"
     },
     {
+      "source": "note:content_memories_2026_05_27_test_api_md",
+      "target": "section:content_memories_2026_05_27_test_api_md:test_api_write",
+      "type": "contains"
+    },
+    {
       "source": "content-root",
       "target": "note:content_memories_template_md",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_memories_template_md",
+      "target": "section:content_memories_template_md:memory_title",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_memories_template_md",
+      "target": "section:content_memories_template_md:summary",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_memories_template_md",
+      "target": "section:content_memories_template_md:context",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_memories_template_md",
+      "target": "section:content_memories_template_md:what_happened_what_was_discussed",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_memories_template_md",
+      "target": "section:content_memories_template_md:decisions_made",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_memories_template_md",
+      "target": "section:content_memories_template_md:insights_lessons_learned",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_memories_template_md",
+      "target": "section:content_memories_template_md:action_items",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_memories_template_md",
+      "target": "section:content_memories_template_md:status",
       "type": "contains"
     },
     {
@@ -203,8 +1192,118 @@
       "type": "contains"
     },
     {
+      "source": "note:content_preferences_md",
+      "target": "section:content_preferences_md:nael_ai_interaction_preferences",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_preferences_md",
+      "target": "section:content_preferences_md:explanation_style",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_preferences_md",
+      "target": "section:content_preferences_md:learning_preference",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_preferences_md",
+      "target": "section:content_preferences_md:coding_rules",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_preferences_md",
+      "target": "section:content_preferences_md:decision_making",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_preferences_md",
+      "target": "section:content_preferences_md:tone_attitude",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_preferences_md",
+      "target": "section:content_preferences_md:what_to_avoid",
+      "type": "contains"
+    },
+    {
       "source": "content-root",
       "target": "note:content_projects_script_mc_diklat_nafas_md",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_projects_script_mc_diklat_nafas_md",
+      "target": "section:content_projects_script_mc_diklat_nafas_md:script_mc_diklat_ruang_sanggar_seni_nafas_ft_um",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_projects_script_mc_diklat_nafas_md",
+      "target": "section:content_projects_script_mc_diklat_nafas_md:pembukaan",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_projects_script_mc_diklat_nafas_md",
+      "target": "section:content_projects_script_mc_diklat_nafas_md:susunan_acara",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_projects_script_mc_diklat_nafas_md",
+      "target": "section:content_projects_script_mc_diklat_nafas_md:pembukaan_acara",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_projects_script_mc_diklat_nafas_md",
+      "target": "section:content_projects_script_mc_diklat_nafas_md:sambutan_sambutan",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_projects_script_mc_diklat_nafas_md",
+      "target": "section:content_projects_script_mc_diklat_nafas_md:penampilan_materi_divisi_tari_dance",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_projects_script_mc_diklat_nafas_md",
+      "target": "section:content_projects_script_mc_diklat_nafas_md:penampilan_materi_divisi_media_informasi",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_projects_script_mc_diklat_nafas_md",
+      "target": "section:content_projects_script_mc_diklat_nafas_md:penampilan_materi_divisi_lukis",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_projects_script_mc_diklat_nafas_md",
+      "target": "section:content_projects_script_mc_diklat_nafas_md:penampilan_materi_divisi_musik",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_projects_script_mc_diklat_nafas_md",
+      "target": "section:content_projects_script_mc_diklat_nafas_md:break_ice_breaking",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_projects_script_mc_diklat_nafas_md",
+      "target": "section:content_projects_script_mc_diklat_nafas_md:materi_kenafasan",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_projects_script_mc_diklat_nafas_md",
+      "target": "section:content_projects_script_mc_diklat_nafas_md:penampilan_musik_kolaborasi",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_projects_script_mc_diklat_nafas_md",
+      "target": "section:content_projects_script_mc_diklat_nafas_md:informasi_makrab",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_projects_script_mc_diklat_nafas_md",
+      "target": "section:content_projects_script_mc_diklat_nafas_md:penutupan",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_projects_script_mc_diklat_nafas_md",
+      "target": "section:content_projects_script_mc_diklat_nafas_md:catatan_penting_untuk_mc",
       "type": "contains"
     },
     {
@@ -213,13 +1312,98 @@
       "type": "contains"
     },
     {
+      "source": "note:content_projects_kanvashub_md",
+      "target": "section:content_projects_kanvashub_md:project_kanvashub",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_projects_kanvashub_md",
+      "target": "section:content_projects_kanvashub_md:overview",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_projects_kanvashub_md",
+      "target": "section:content_projects_kanvashub_md:goal",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_projects_kanvashub_md",
+      "target": "section:content_projects_kanvashub_md:tech_stack",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_projects_kanvashub_md",
+      "target": "section:content_projects_kanvashub_md:current_state",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_projects_kanvashub_md",
+      "target": "section:content_projects_kanvashub_md:notes",
+      "type": "contains"
+    },
+    {
       "source": "content-root",
       "target": "note:content_projects_nael_mind_md",
       "type": "contains"
     },
     {
+      "source": "note:content_projects_nael_mind_md",
+      "target": "section:content_projects_nael_mind_md:project_nael_mind",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_projects_nael_mind_md",
+      "target": "section:content_projects_nael_mind_md:overview",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_projects_nael_mind_md",
+      "target": "section:content_projects_nael_mind_md:problem_solved",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_projects_nael_mind_md",
+      "target": "section:content_projects_nael_mind_md:core_goal",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_projects_nael_mind_md",
+      "target": "section:content_projects_nael_mind_md:future",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_projects_nael_mind_md",
+      "target": "section:content_projects_nael_mind_md:architecture_current",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_projects_nael_mind_md",
+      "target": "section:content_projects_nael_mind_md:file_structure",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_projects_nael_mind_md",
+      "target": "section:content_projects_nael_mind_md:update_flow",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_projects_nael_mind_md",
+      "target": "section:content_projects_nael_mind_md:future_ideas",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_projects_nael_mind_md",
+      "target": "section:content_projects_nael_mind_md:stack",
+      "type": "contains"
+    },
+    {
       "source": "content-root",
       "target": "note:content_projects_tes_md",
+      "type": "contains"
+    },
+    {
+      "source": "note:content_projects_tes_md",
+      "target": "section:content_projects_tes_md:new_note",
       "type": "contains"
     }
   ]
