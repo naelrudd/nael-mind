@@ -1,6 +1,8 @@
 User-agent: *
 Full-context: https://nael-mind.vercel.app/context
 Full-context-plain: https://nael-mind.vercel.app/api/context
+Raw-API: https://api.github.com/repos/naelrudd/nael-mind/git/trees/main?recursive=1
+Single-file-raw: https://raw.githubusercontent.com/naelrudd/nael-mind/main/{path}
 Single-file: https://nael-mind.vercel.app/api/read?filename={path}
 Single-file-json: https://nael-mind.vercel.app/api/read?filename={path}
 File-list: https://nael-mind.vercel.app/api/list
@@ -9,5 +11,9 @@ Graph: https://nael-mind.vercel.app/api/graph
 # Nael Mind - Personal Knowledge System
 # Owner: Natanael Rudy Hadinata
 # This is a personal knowledge base stored as markdown files.
-# AI agents can browse /context (HTML) for full content, or
-# use the JSON API at /api/list and /api/read.
+# Best way to read content (no JS needed):
+#   https://raw.githubusercontent.com/naelrudd/nael-mind/main/content/README.md
+# List all files via GitHub Tree API:
+#   https://api.github.com/repos/naelrudd/nael-mind/git/trees/main?recursive=1
+# Full HTML context (no JS):
+#   https://nael-mind.vercel.app/context
