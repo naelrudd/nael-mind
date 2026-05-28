@@ -1,6 +1,7 @@
 User-agent: *
 Full-context: https://nael-mind.vercel.app/context
 Full-context-plain: https://nael-mind.vercel.app/api/context
+Full-content-json: https://nael-mind.vercel.app/api/all-content
 Raw-API: https://api.github.com/repos/naelrudd/nael-mind/git/trees/main?recursive=1
 Single-file-raw: https://raw.githubusercontent.com/naelrudd/nael-mind/main/{path}
 Single-file-rest: https://nael-mind.vercel.app/api/content/{path}
