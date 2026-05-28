@@ -374,6 +374,11 @@ async function apiList(path = 'content') {
   return response.json();
 }
 
+async function apiFiles() {
+  const response = await fetch(`${API_BASE}/files`);
+  return response.json();
+}
+
 async function apiRead(filename) {
   const response = await fetch(`${API_BASE}/api/read?filename=${encodeURIComponent(filename)}`);
   return response.json();
@@ -1073,6 +1078,18 @@ function filterByTag(tag) {
 
 document.addEventListener('DOMContentLoaded', async () => {
   await refreshFileTree();
+
+  // load flat file list for stats and AI-friendly fallback
+  try {
+    const data = await apiFiles();
+    const flatFiles = data.files || [];
+    if (flatFiles.length > 0 && !state.allFiles.length) {
+      state.allFiles = flatFiles;
+    }
+    const statsEl = document.getElementById('stats');
+    if (statsEl) statsEl.textContent = `${flatFiles.length} files`;
+  } catch (_) {}
+
   updateToolbar();
 
   document.getElementById('btn-edit').addEventListener('click', startEdit);

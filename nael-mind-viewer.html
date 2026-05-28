@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧠 Nael Mind - Content Viewer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 20px;
+            height: 90vh;
+        }
+
+        .sidebar {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .file-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .file-item {
+            padding: 10px 12px;
+            background: #f5f5f5;
+            border-left: 3px solid transparent;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .file-item:hover {
+            background: #efefef;
+            border-left-color: #667eea;
+        }
+
+        .file-item.active {
+            background: #667eea;
+            color: white;
+            border-left-color: #764ba2;
+        }
+
+        .content-area {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error {
+            background: #fee;
+            color: #c33;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .content {
+            line-height: 1.7;
+            color: #333;
+        }
+
+        .content h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #667eea;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .content h2 {
+            font-size: 22px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            color: #764ba2;
+        }
+
+        .content h3 {
+            font-size: 18px;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            color: #555;
+        }
+
+        .content p {
+            margin-bottom: 12px;
+        }
+
+        .content ul, .content ol {
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        .content li {
+            margin-bottom: 6px;
+        }
+
+        .content code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 13px;
+        }
+
+        .content pre {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-bottom: 15px;
+        }
+
+        .content pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .meta {
+            font-size: 12px;
+            color: #999;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            justify-content: space-between;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            color: white;
+        }
+
+        .stats {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+
+            .sidebar {
+                max-height: 300px;
+            }
+
+            .content-area {
+                min-height: 500px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🧠 Nael Mind</h1>
+        <div class="stats" id="stats">Loading...</div>
+    </div>
+
+    <div class="container">
+        <div class="sidebar">
+            <h2>📁 Files</h2>
+            <input type="text" class="search-box" id="searchBox" placeholder="Search files...">
+            <div class="file-list" id="fileList">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    Loading files...
+                </div>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="loading" id="contentLoader">
+                <div class="spinner"></div>
+                Loading content...
+            </div>
+            <div class="content" id="content" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'https://nael-mind.vercel.app/api';
+        let allFiles = [];
+        let currentFile = null;
+
+        // Fetch all files
+        async function loadFiles() {
+            try {
+                const response = await fetch(`${API_BASE}/files`);
+                const data = await response.json();
+                allFiles = data.files || [];
+                
+                // Update stats
+                document.getElementById('stats').textContent = `${allFiles.length} files`;
+                
+                renderFileList(allFiles);
+                
+                // Load first file automatically
+                if (allFiles.length > 0) {
+                    loadFile(allFiles[0].path);
+                }
+            } catch (error) {
+                showError('Failed to load files: ' + error.message);
+            }
+        }
+
+        // Render file list
+        function renderFileList(files) {
+            const fileList = document.getElementById('fileList');
+            fileList.innerHTML = files.map(file => `
+                <div class="file-item" onclick="loadFile('${file.path}')">
+                    📄 ${file.name}
+                </div>
+            `).join('');
+        }
+
+        // Load and display file content
+        async function loadFile(filePath) {
+            currentFile = filePath;
+            const loader = document.getElementById('contentLoader');
+            const content = document.getElementById('content');
+            
+            loader.style.display = 'block';
+            content.style.display = 'none';
+
+            try {
+                const response = await fetch(`${API_BASE}/read?filename=${filePath}`);
+                const data = await response.json();
+                
+                // Update active state
+                document.querySelectorAll('.file-item').forEach(item => {
+                    item.classList.remove('active');
+                    if (item.textContent.includes(data.filename.split('/').pop())) {
+                        item.classList.add('active');
+                    }
+                });
+
+                // Parse markdown to HTML (simple implementation)
+                const html = markdownToHtml(data.content);
+                content.innerHTML = html;
+                content.innerHTML += `<div class="meta">📝 ${data.filename}</div>`;
+                
+                loader.style.display = 'none';
+                content.style.display = 'block';
+            } catch (error) {
+                showError('Failed to load content: ' + error.message);
+            }
+        }
+
+        // Simple markdown to HTML converter
+        function markdownToHtml(markdown) {
+            let html = markdown;
+            
+            // Headers
+            html = html.replace(/^### (.*?)$/gm, '<h3>$1</h3>');
+            html = html.replace(/^## (.*?)$/gm, '<h2>$1</h2>');
+            html = html.replace(/^# (.*?)$/gm, '<h1>$1</h1>');
+            
+            // Bold and italic
+            html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+            html = html.replace(/__(.*?)__/g, '<strong>$1</strong>');
+            html = html.replace(/_(.*?)_/g, '<em>$1</em>');
+            
+            // Code blocks
+            html = html.replace(/```(.*?)```/gs, '<pre><code>$1</code></pre>');
+            html = html.replace(/`(.*?)`/g, '<code>$1</code>');
+            
+            // Links
+            html = html.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>');
+            
+            // Lists
+            html = html.replace(/^- (.*?)$/gm, '<li>$1</li>');
+            html = html.replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>');
+            
+            // Paragraphs
+            html = html.split('\n\n').map(para => {
+                if (!para.match(/^<[h|u|o|p|pre]/)) {
+                    return '<p>' + para.replace(/\n/g, '<br>') + '</p>';
+                }
+                return para;
+            }).join('');
+            
+            return html;
+        }
+
+        // Search functionality
+        document.getElementById('searchBox').addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const filtered = allFiles.filter(file => 
+                file.name.toLowerCase().includes(query) ||
+                file.path.toLowerCase().includes(query)
+            );
+            renderFileList(filtered);
+        });
+
+        // Show error
+        function showError(message) {
+            const content = document.getElementById('content');
+            content.innerHTML = `<div class="error">${message}</div>`;
+            content.style.display = 'block';
+            document.getElementById('contentLoader').style.display = 'none';
+        }
+
+        // Initialize
+        loadFiles();
+    </script>
+</body>
+</html>
