@@ -393,6 +393,13 @@
       node.append('circle')
         .attr('r', d => Math.max(isEmbed ? 10 : 8, nodeSize * (1.0 + d.importance * (isEmbed ? 0.6 : 0.9))))
         .attr('fill', d => {
+          const typeColors = {
+            root: '#f4f1ea',
+            note: '#d98d6a',
+            section: '#8e9b8a',
+            tag: '#b9a07d',
+          };
+          if (typeColors[d.type]) return typeColors[d.type];
           const palette = [
             getComputedStyle(document.documentElement).getPropertyValue('--node1').trim(),
             getComputedStyle(document.documentElement).getPropertyValue('--node2').trim(),
@@ -431,6 +438,14 @@
         tooltip.classList.remove('show');
       })
       .on('click', (event, d) => {
+        // Open file in parent app if it's a note/section
+        if (d.type === 'note' || d.type === 'section') {
+          const filePath = d.type === 'section' ? (d.source_file || d.description?.split(' # ')[0]) : (d.source_file || d.description);
+          if (filePath && window.parent !== window) {
+            window.parent.postMessage({ type: 'graph:open-file', path: filePath }, '*');
+          }
+        }
+
         // Highlight connected nodes
         const connected = new Set();
         graphData.links.forEach(l => {

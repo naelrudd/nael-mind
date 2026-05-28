@@ -1249,4 +1249,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   showFilesView();
+
+  // Listen for graph node clicks (from iframe)
+  window.addEventListener('message', (event) => {
+    if (event.data?.type === 'graph:open-file' && event.data.path) {
+      loadFile(event.data.path);
+    }
+  });
 });
