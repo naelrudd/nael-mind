@@ -17,6 +17,21 @@ function stripExtension(filename) {
   return String(filename || '').replace(/\.md$/i, '').replace(/\.markdown$/i, '');
 }
 
+function extractHeadings(text) {
+  const lines = String(text || '').split('\n');
+  const headings = [];
+  for (const line of lines) {
+    const match = line.match(/^(#{1,4})\s+(.+)/);
+    if (match) {
+      headings.push({
+        level: match[1].length,
+        text: match[2].trim().replace(/^['"`]|['"`]$/g, ''),
+      });
+    }
+  }
+  return headings;
+}
+
 function extractFrontmatter(content) {
   const value = String(content || '').replace(/\r\n/g, '\n');
   const match = value.match(/^---\n([\s\S]*?)\n---\n?/);
@@ -145,6 +160,23 @@ async function buildGraph(tree, repo) {
     titleIndex.set(title.toLowerCase(), file.path);
     parsedFiles.push({ ...note, body });
 
+    const headings = extractHeadings(body);
+    for (const h of headings) {
+      const sectionId = `section:${slugify(file.path)}:${slugify(h.text)}`;
+      addNode({
+        id: sectionId,
+        label: h.text.length > 40 ? h.text.slice(0, 40) + '...' : h.text,
+        file_type: 'section',
+        type: 'section',
+        source_file: file.path,
+        description: `${file.path} # ${h.text}`,
+        community: ensureCommunity(topLevelKey(file.path)),
+        importance: 4 - h.level * 0.5,
+        level: h.level,
+      });
+      addLink(noteId, sectionId, 'contains');
+    }
+
     for (const tag of tags) {
       const tagId = `tag:${slugify(tag)}`;
       addNode({
@@ -184,7 +216,7 @@ async function enrichWithGemini(graph) {
   if (!key) return graph;
 
   const fileNodes = graph.nodes.filter((node) => node.type === 'note');
-  const files = fileNodes.slice(0, 120).map((node) => ({
+  const files = fileNodes.slice(0, 100).map((node) => ({
     path: node.source_file,
     title: node.label,
     tags: node.tags || [],
@@ -197,10 +229,10 @@ async function enrichWithGemini(graph) {
     'Rules:',
     '- Only use note paths from the provided list.',
     '- Communities must be small integers starting at 0.',
-    '- Return at most 20 links.',
+    '- Return at most 25 links.',
     '- Do not include markdown fences or commentary.',
     '',
-    'Files:',
+    'Notes (path, title, tags):',
     JSON.stringify(files, null, 2),
   ].join('\n');
 
@@ -230,11 +262,22 @@ async function enrichWithGemini(graph) {
     const pathToId = new Map(graph.nodes.map((node) => [node.source_file || node.description, node.id]));
     const seenLinks = new Set(graph.links.map((link) => `${link.source}->${link.target}:${link.type || 'related'}`));
 
+    const noteFileToCommunity = new Map();
+
     graph.nodes.forEach((node) => {
       if (node.type !== 'note') return;
       const path = node.source_file || node.description;
       if (communityMap[path] !== undefined) {
         node.community = Number(communityMap[path]) || 0;
+        noteFileToCommunity.set(path, node.community);
+      }
+    });
+
+    graph.nodes.forEach((node) => {
+      if (node.type !== 'section') return;
+      const path = node.source_file || node.description;
+      if (noteFileToCommunity.has(path)) {
+        node.community = noteFileToCommunity.get(path);
       }
     });
 
