@@ -2,3 +2,5 @@ env
 .env
 .vercel
 .env*
+graphify-out/
+package-lock.json
