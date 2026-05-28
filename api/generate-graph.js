@@ -212,11 +212,36 @@ async function buildGraph(tree, repo) {
 }
 
 async function callAI(prompt) {
+  const opencodeKey = process.env.OPENCODE_API_KEY;
   const genfityKey = process.env.GENFITY_API_KEY;
   const googleKey = process.env.GOOGLE_API_KEY;
   const model = process.env.GRAPH_MODEL || '';
 
-  if (genfityKey && (model.includes('genfity') || !googleKey)) {
+  // 1) OpenCode Zen — free models: minimax-m2.5-free, big-pickle, mimo-v2-pro-free,
+  //    mimo-v2-omni-free, qwen3.6-plus-free, nemotron-3-super-free, deepseek-v4-flash-free
+  if (opencodeKey) {
+    const useModel = model || 'minimax-m2.5-free';
+    const response = await fetch('https://opencode.ai/zen/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${opencodeKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: useModel,
+        messages: [{ role: 'user', content: prompt }],
+        temperature: 0.2,
+        max_tokens: 4096,
+      }),
+    });
+
+    if (!response.ok) return null;
+    const data = await response.json();
+    return data?.choices?.[0]?.message?.content || null;
+  }
+
+  // 2) Genfity — supports genfity/claude-opus-4.6:free, genfity/gpt-5.5:free, etc.
+  if (genfityKey) {
     const useModel = model || 'genfity/claude-opus-4.6:free';
     const response = await fetch('https://ai.genfity.com/v1/chat/completions', {
       method: 'POST',
@@ -237,6 +262,7 @@ async function callAI(prompt) {
     return data?.choices?.[0]?.message?.content || null;
   }
 
+  // 3) Google Gemini — fallback
   if (googleKey) {
     const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${encodeURIComponent(googleKey)}`, {
       method: 'POST',

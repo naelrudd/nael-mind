@@ -1,8 +1,6 @@
 {
   "version": 2,
   "routes": [
-    { "src": "/llms.txt", "dest": "/public/llms.txt" },
-    { "src": "/.well-known/(.*)", "dest": "/public/.well-known/$1" },
     { "src": "/graph", "dest": "/graphify-out/graph.html" },
     { "src": "/graphify-out/(.*)", "dest": "/graphify-out/$1" },
     { "src": "/api/(.*)", "dest": "/api/$1" },
