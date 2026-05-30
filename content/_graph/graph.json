@@ -152,7 +152,7 @@
       "source_file": "content/current-focus.md",
       "description": "content/current-focus.md",
       "tags": [],
-      "community": 0,
+      "community": 1,
       "importance": 5
     },
     {
@@ -162,7 +162,7 @@
       "type": "section",
       "source_file": "content/current-focus.md",
       "description": "content/current-focus.md # Current Focus (27 Mei 2026)",
-      "community": 0,
+      "community": 1,
       "importance": 3.5,
       "level": 1
     },
@@ -173,7 +173,7 @@
       "type": "section",
       "source_file": "content/current-focus.md",
       "description": "content/current-focus.md # High Priority (Utama)",
-      "community": 0,
+      "community": 1,
       "importance": 3,
       "level": 2
     },
@@ -184,7 +184,7 @@
       "type": "section",
       "source_file": "content/current-focus.md",
       "description": "content/current-focus.md # Medium Priority",
-      "community": 0,
+      "community": 1,
       "importance": 3,
       "level": 2
     },
@@ -195,7 +195,7 @@
       "type": "section",
       "source_file": "content/current-focus.md",
       "description": "content/current-focus.md # Low Priority (Maintenance)",
-      "community": 0,
+      "community": 1,
       "importance": 3,
       "level": 2
     },
@@ -207,7 +207,7 @@
       "source_file": "content/goals.md",
       "description": "content/goals.md",
       "tags": [],
-      "community": 0,
+      "community": 1,
       "importance": 5
     },
     {
@@ -217,7 +217,7 @@
       "type": "section",
       "source_file": "content/goals.md",
       "description": "content/goals.md # Nael - Goals & Direction",
-      "community": 0,
+      "community": 1,
       "importance": 3.5,
       "level": 1
     },
@@ -228,7 +228,7 @@
       "type": "section",
       "source_file": "content/goals.md",
       "description": "content/goals.md # Short Term (Now)",
-      "community": 0,
+      "community": 1,
       "importance": 3,
       "level": 2
     },
@@ -239,7 +239,7 @@
       "type": "section",
       "source_file": "content/goals.md",
       "description": "content/goals.md # Current Priorities",
-      "community": 0,
+      "community": 1,
       "importance": 3,
       "level": 2
     },
@@ -250,7 +250,7 @@
       "type": "section",
       "source_file": "content/goals.md",
       "description": "content/goals.md # Medium Term",
-      "community": 0,
+      "community": 1,
       "importance": 3,
       "level": 2
     },
@@ -261,7 +261,7 @@
       "type": "section",
       "source_file": "content/goals.md",
       "description": "content/goals.md # Long Term Vision",
-      "community": 0,
+      "community": 1,
       "importance": 3,
       "level": 2
     },
@@ -363,28 +363,6 @@
       "community": 2,
       "importance": 3,
       "level": 2
-    },
-    {
-      "id": "note:content_memories_2026_05_27_test_api_md",
-      "label": "2026-05-27_test-api",
-      "file_type": "note",
-      "type": "note",
-      "source_file": "content/memories/2026-05-27_test-api.md",
-      "description": "content/memories/2026-05-27_test-api.md",
-      "tags": [],
-      "community": 2,
-      "importance": 5
-    },
-    {
-      "id": "section:content_memories_2026_05_27_test_api_md:test_api_write",
-      "label": "Test API Write",
-      "file_type": "section",
-      "type": "section",
-      "source_file": "content/memories/2026-05-27_test-api.md",
-      "description": "content/memories/2026-05-27_test-api.md # Test API Write",
-      "community": 2,
-      "importance": 3.5,
-      "level": 1
     },
     {
       "id": "note:content_memories_template_md",
@@ -581,7 +559,7 @@
       "source_file": "content/projects/kanvashub.md",
       "description": "content/projects/kanvashub.md",
       "tags": [],
-      "community": 1,
+      "community": 3,
       "importance": 5
     },
     {
@@ -591,7 +569,7 @@
       "type": "section",
       "source_file": "content/projects/kanvashub.md",
       "description": "content/projects/kanvashub.md # Project: KanvasHub",
-      "community": 1,
+      "community": 3,
       "importance": 3.5,
       "level": 1
     },
@@ -602,7 +580,7 @@
       "type": "section",
       "source_file": "content/projects/kanvashub.md",
       "description": "content/projects/kanvashub.md # Overview",
-      "community": 1,
+      "community": 3,
       "importance": 3,
       "level": 2
     },
@@ -613,7 +591,7 @@
       "type": "section",
       "source_file": "content/projects/kanvashub.md",
       "description": "content/projects/kanvashub.md # Goal",
-      "community": 1,
+      "community": 3,
       "importance": 3,
       "level": 2
     },
@@ -624,7 +602,7 @@
       "type": "section",
       "source_file": "content/projects/kanvashub.md",
       "description": "content/projects/kanvashub.md # Tech Stack",
-      "community": 1,
+      "community": 3,
       "importance": 3,
       "level": 2
     },
@@ -635,7 +613,7 @@
       "type": "section",
       "source_file": "content/projects/kanvashub.md",
       "description": "content/projects/kanvashub.md # Current State",
-      "community": 1,
+      "community": 3,
       "importance": 3,
       "level": 2
     },
@@ -646,7 +624,7 @@
       "type": "section",
       "source_file": "content/projects/kanvashub.md",
       "description": "content/projects/kanvashub.md # Notes",
-      "community": 1,
+      "community": 3,
       "importance": 3,
       "level": 2
     },
@@ -658,7 +636,7 @@
       "source_file": "content/projects/nael-mind.md",
       "description": "content/projects/nael-mind.md",
       "tags": [],
-      "community": 1,
+      "community": 2,
       "importance": 5
     },
     {
@@ -668,7 +646,7 @@
       "type": "section",
       "source_file": "content/projects/nael-mind.md",
       "description": "content/projects/nael-mind.md # Project: Nael Mind",
-      "community": 1,
+      "community": 2,
       "importance": 3.5,
       "level": 1
     },
@@ -679,7 +657,7 @@
       "type": "section",
       "source_file": "content/projects/nael-mind.md",
       "description": "content/projects/nael-mind.md # Overview",
-      "community": 1,
+      "community": 2,
       "importance": 3,
       "level": 2
     },
@@ -690,7 +668,7 @@
       "type": "section",
       "source_file": "content/projects/nael-mind.md",
       "description": "content/projects/nael-mind.md # Problem Solved",
-      "community": 1,
+      "community": 2,
       "importance": 3,
       "level": 2
     },
@@ -701,7 +679,7 @@
       "type": "section",
       "source_file": "content/projects/nael-mind.md",
       "description": "content/projects/nael-mind.md # Core Goal",
-      "community": 1,
+      "community": 2,
       "importance": 3,
       "level": 2
     },
@@ -712,7 +690,7 @@
       "type": "section",
       "source_file": "content/projects/nael-mind.md",
       "description": "content/projects/nael-mind.md # Future",
-      "community": 1,
+      "community": 2,
       "importance": 3,
       "level": 2
     },
@@ -723,7 +701,7 @@
       "type": "section",
       "source_file": "content/projects/nael-mind.md",
       "description": "content/projects/nael-mind.md # Architecture (current)",
-      "community": 1,
+      "community": 2,
       "importance": 3,
       "level": 2
     },
@@ -734,7 +712,7 @@
       "type": "section",
       "source_file": "content/projects/nael-mind.md",
       "description": "content/projects/nael-mind.md # File Structure",
-      "community": 1,
+      "community": 2,
       "importance": 3,
       "level": 2
     },
@@ -745,7 +723,7 @@
       "type": "section",
       "source_file": "content/projects/nael-mind.md",
       "description": "content/projects/nael-mind.md # Update Flow",
-      "community": 1,
+      "community": 2,
       "importance": 3,
       "level": 2
     },
@@ -756,7 +734,7 @@
       "type": "section",
       "source_file": "content/projects/nael-mind.md",
       "description": "content/projects/nael-mind.md # Future Ideas",
-      "community": 1,
+      "community": 2,
       "importance": 3,
       "level": 2
     },
@@ -767,31 +745,9 @@
       "type": "section",
       "source_file": "content/projects/nael-mind.md",
       "description": "content/projects/nael-mind.md # Stack",
-      "community": 1,
+      "community": 2,
       "importance": 3,
       "level": 2
-    },
-    {
-      "id": "note:content_projects_tes_md",
-      "label": "tes",
-      "file_type": "note",
-      "type": "note",
-      "source_file": "content/projects/tes.md",
-      "description": "content/projects/tes.md",
-      "tags": [],
-      "community": 1,
-      "importance": 5
-    },
-    {
-      "id": "section:content_projects_tes_md:new_note",
-      "label": "New Note",
-      "file_type": "section",
-      "type": "section",
-      "source_file": "content/projects/tes.md",
-      "description": "content/projects/tes.md # New Note",
-      "community": 1,
-      "importance": 3.5,
-      "level": 1
     }
   ],
   "links": [
@@ -953,16 +909,6 @@
     {
       "source": "note:content_memories_2026_05_27_nael_mind_origin_md",
       "target": "section:content_memories_2026_05_27_nael_mind_origin_md:status",
-      "type": "contains"
-    },
-    {
-      "source": "content-root",
-      "target": "note:content_memories_2026_05_27_test_api_md",
-      "type": "contains"
-    },
-    {
-      "source": "note:content_memories_2026_05_27_test_api_md",
-      "target": "section:content_memories_2026_05_27_test_api_md:test_api_write",
       "type": "contains"
     },
     {
@@ -1141,37 +1087,12 @@
       "type": "contains"
     },
     {
-      "source": "content-root",
-      "target": "note:content_projects_tes_md",
-      "type": "contains"
-    },
-    {
-      "source": "note:content_projects_tes_md",
-      "target": "section:content_projects_tes_md:new_note",
-      "type": "contains"
-    },
-    {
-      "source": "section:content_current_focus_md:low_priority_maintenance",
-      "target": "section:content_goals_md:long_term_vision",
+      "source": "section:content_identity_md:personality_working_style",
+      "target": "section:content_master_context_md:nael_mind_master_context",
       "type": "related"
     },
     {
-      "source": "section:content_master_context_md:nael_mind_master_context",
-      "target": "section:content_identity_md:personality_working_style",
-      "type": "related"
-    },
-    {
-      "source": "section:content_master_context_md:nael_mind_master_context",
-      "target": "section:content_current_focus_md:low_priority_maintenance",
-      "type": "related"
-    },
-    {
-      "source": "section:content_master_context_md:nael_mind_master_context",
-      "target": "section:content_goals_md:long_term_vision",
-      "type": "related"
-    },
-    {
-      "source": "section:content_master_context_md:nael_mind_master_context",
+      "source": "section:content_identity_md:personality_working_style",
       "target": "section:content_preferences_md:what_to_avoid",
       "type": "related"
     },
@@ -1181,28 +1102,33 @@
       "type": "related"
     },
     {
-      "source": "section:content_projects_kanvashub_md:notes",
+      "source": "section:content_current_focus_md:low_priority_maintenance",
+      "target": "section:content_goals_md:long_term_vision",
+      "type": "related"
+    },
+    {
+      "source": "section:content_master_context_md:nael_mind_master_context",
+      "target": "section:content_preferences_md:what_to_avoid",
+      "type": "related"
+    },
+    {
+      "source": "section:content_memories_2026_05_27_nael_mind_origin_md:status",
       "target": "section:content_projects_nael_mind_md:stack",
-      "type": "related"
-    },
-    {
-      "source": "section:content_projects_kanvashub_md:notes",
-      "target": "section:content_projects_tes_md:new_note",
-      "type": "related"
-    },
-    {
-      "source": "section:content_projects_nael_mind_md:stack",
-      "target": "section:content_memories_2026_05_27_nael_mind_origin_md:status",
-      "type": "related"
-    },
-    {
-      "source": "section:content_projects_tes_md:new_note",
-      "target": "section:content_memories_2026_05_27_test_api_md:test_api_write",
       "type": "related"
     },
     {
       "source": "section:content_memories_template_md:status",
       "target": "section:content_memories_2026_05_27_nael_mind_origin_md:status",
+      "type": "related"
+    },
+    {
+      "source": "section:content_projects_nael_mind_md:stack",
+      "target": "section:content_master_context_md:nael_mind_master_context",
+      "type": "related"
+    },
+    {
+      "source": "section:content_projects_kanvashub_md:notes",
+      "target": "section:content_goals_md:long_term_vision",
       "type": "related"
     }
   ]
